@@ -2,7 +2,6 @@
 
 バレットの計算機です
 
-https://sbfl.net/app/granbluefantasy/bulletcalc/
 
 ## ビルド方法
 
