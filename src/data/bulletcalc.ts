@@ -9,11 +9,13 @@ export interface BulletCalculatorData {
   actionButton?: React.ReactNode;
   installPrompt?: any;
   systemPreferences: {[item: string]: any};
+  locale: string;
   setBulletCosts: (newBullets: BulletCost[]) => any;
   setInventory: (newInventory: {[slug: string]: number}) => any;
   setBulletInventory: (newBulletInventory: BulletCost[]) => any;
   setActionButton: (button: React.ReactNode | undefined) => any;
   setSystemPreferences: (pref: {[item: string]: any}) => any;
+  setLocale: (locale: string) => any;
   setInstallPrompt: (prompt: any) => any;
 }
 
@@ -36,17 +38,14 @@ export const combineDuplicatedInventoryBullets = (exclusionBullets: GbfItemCost[
 }
 
 export const totalBulletCosts = (bulletCostList: BulletCost[], exclusionBullets: GbfItemCost[] = []): GbfItemCost[] => {
-  // 素材バレットを消費しながら計算を進めていく。
   let remainingExclusionBullets = [...exclusionBullets];
 
   const calculatedCosts = bulletCostList.map((c) => {
     const {result, remainingExclusions} = c.calcRequiredCosts({exclusionCosts: remainingExclusionBullets});
-    remainingExclusionBullets = remainingExclusions; // 残りバレット
+    remainingExclusionBullets = remainingExclusions;
     return result;
   });
 
-  // バレットごとに素材がバラバラに出てくるので、
-  // 各素材をひとつにまとめる。
   type costObj = {item: GbfItem, quantity: number};
   const costMap: Map<string, costObj> = new Map<string, costObj>();
   const costList = [];

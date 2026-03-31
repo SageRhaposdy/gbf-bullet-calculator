@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useMemo } from 'react';
 import { BulletCalculatorContext } from '../context/bulletcalc_context';
 import { totalBulletCosts, combineDuplicatedInventoryBullets } from '../data/bulletcalc';
 import { Card } from '../components/Card';
 import { CardButton } from '../components/CardButton';
 import { withRouter } from 'react-router';
 import { ProgressBar } from '../components/ProgressBar';
-import { useMemo } from 'react';
 
 const cardStyle: React.CSSProperties = {
   display: 'flex',
@@ -97,46 +96,48 @@ const emptyMessageStyle: React.CSSProperties = {
 };
 
 export const CostCalcPage = withRouter(({history}) => {
-  const {bulletCosts, inventory, bulletInventory} = useContext(BulletCalculatorContext);
+  const { bulletCosts, inventory, bulletInventory, locale } = useContext(BulletCalculatorContext);
 
-  // 全ての作成バレットの素材を合計して列挙する。
-  // 所持バレット分の素材は除外する。
-  const totalCosts = useMemo(
-    () => {
-      const combinedBulletInventory = combineDuplicatedInventoryBullets(bulletInventory);
-      return totalBulletCosts(bulletCosts, combinedBulletInventory)
-    },
-    [bulletCosts, bulletInventory]
-  );
+  const t = {
+    craftingBullets: locale === 'en' ? 'Bullets to Craft' : '作成バレット',
+    materialBullets: locale === 'en' ? 'Material Bullets' : '素材用バレット',
+    progress: locale === 'en' ? 'Progress' : '進捗',
+    requiredMaterials: locale === 'en' ? 'Required Materials' : '必要素材',
+    inputOwned: locale === 'en' ? 'Enter Owned Amounts' : '所持数入力',
+    noBullets: locale === 'en' ? 'No bullets' : 'バレットがありません',
+    none: locale === 'en' ? 'None' : 'なし',
+    quantitySuffix: locale === 'en' ? '' : '個'
+  };
 
-  // アイテム所持数入力ページへ遷移するためのコールバック。
+  const totalCosts = useMemo(() => {
+    const combinedBulletInventory = combineDuplicatedInventoryBullets(bulletInventory);
+    return totalBulletCosts(bulletCosts, combinedBulletInventory);
+  }, [bulletCosts, bulletInventory]);
+
   const goToItemInput = useCallback((event: AnimationPlaybackEvent) => {
-    history.push('/calc/input/item')
+    history.push('/calc/input/item');
   }, [history]);
 
-  // 作成バレットリスト。
   const bulletList = bulletCosts.map((bullet, index) => {
     return (
       <div key={'bullet-list-' + bullet.item.slug + `-${index}`} style={costListItemStyle}>
         <img src={`img/${bullet.item.iconFileName || 'treasure.svg'}`} style={costIconStyle}/>
-        <div style={costNameStyle}>{bullet.item.name.ja}</div>
-        <div style={costQuantityStyle}>{bullet.quantity}個</div>
+        <div style={costNameStyle}>{bullet.item.getDisplayName(locale)}</div>
+        <div style={costQuantityStyle}>{bullet.quantity}{t.quantitySuffix}</div>
       </div>
     );
   });
 
-  // 所持バレットリスト。
   const bulletInventoryList = bulletInventory.map((bullet, index) => {
     return (
       <div key={'bullet-inventory-' + bullet.item.slug + `-${index}`} style={costListItemStyle}>
         <img src={`img/${bullet.item.iconFileName || 'treasure.svg'}`} style={costIconStyle}/>
-        <div style={costNameStyle}>{bullet.item.name.ja}</div>
-        <div style={costQuantityStyle}>{bullet.quantity}個</div>
+        <div style={costNameStyle}>{bullet.item.getDisplayName(locale)}</div>
+        <div style={costQuantityStyle}>{bullet.quantity}{t.quantitySuffix}</div>
       </div>
     );
   });
 
-  // 必要アイテムリスト。
   const requiredItemList = totalCosts.map((cost) => {
     const inventoryQuantity = cost.item.slug in inventory ? inventory[cost.item.slug] : 0;
     const progress = cost.quantity > 0 ? inventoryQuantity / cost.quantity : 0;
@@ -145,59 +146,53 @@ export const CostCalcPage = withRouter(({history}) => {
       <div key={cost.item.slug} style={costListItemContainerStyle}>
         <div style={costListItemStyle}>
           <img src={`img/${cost.item.iconFileName || 'treasure.svg'}`} style={costIconStyle}/>
-          <div style={costNameStyle}>{cost.item.name.ja}</div>
-          <div style={costQuantityStyle}>{inventoryQuantity}/{cost.quantity}個</div>
+          <div style={costNameStyle}>{cost.item.getDisplayName(locale)}</div>
+          <div style={costQuantityStyle}>
+            {inventoryQuantity}/{cost.quantity}{t.quantitySuffix}
+          </div>
         </div>
         <ProgressBar progress={progress}/>
       </div>
     );
   });
 
-  // 必要アイテムがひとつでもあるかどうか。
   const hasCosts = bulletList.length > 0 && requiredItemList.length > 0;
-
-  // 必要アイテムリストが長すぎるかどうか。
-  // 10個を超えたら「長すぎる」扱いにする。
   const isTooLong = requiredItemList.length > 10;
 
-  // 全アイテムの合計個数。
   const costSum = useMemo(
-    () =>totalCosts.reduce((prev, current) => prev + current.quantity, 0),
-    [bulletCosts, inventory]
+    () => totalCosts.reduce((prev, current) => prev + current.quantity, 0),
+    [totalCosts]
   );
 
-  // 全所持アイテムの合計個数。
   const totalInventory = useMemo(
     () => totalCosts.reduce((prev, current) => (
       prev + (current.item.slug in inventory ? Math.min(inventory[current.item.slug], current.quantity) : 0)
     ), 0),
-    [bulletCosts, inventory]
+    [totalCosts, inventory]
   );
 
-  // 全体の進捗（0.0から1.0）。
-  const progress = costSum > 0 ? totalInventory/costSum : 0;
+  const progress = costSum > 0 ? totalInventory / costSum : 0;
 
   return (
     <div className="page">
       <Card style={bulletCardStyle}>
-        <h2 style={cardTitleStyle}>作成バレット</h2>
+        <h2 style={cardTitleStyle}>{t.craftingBullets}</h2>
         <div style={costListStyle}>
-          {hasCosts ? bulletList : <div style={emptyMessageStyle}>バレットがありません</div>}
+          {hasCosts ? bulletList : <div style={emptyMessageStyle}>{t.noBullets}</div>}
         </div>
       </Card>
 
       <Card style={bulletInventoryCardStyle}>
-        <h2 style={cardTitleStyle}>素材用バレット</h2>
+        <h2 style={cardTitleStyle}>{t.materialBullets}</h2>
         <div style={costListStyle}>
-          {bulletInventoryList.length > 0 ?
-            bulletInventoryList :
-            <div style={emptyMessageStyle}>バレットがありません</div>
-          }
+          {bulletInventoryList.length > 0
+            ? bulletInventoryList
+            : <div style={emptyMessageStyle}>{t.noBullets}</div>}
         </div>
       </Card>
 
       <Card style={progressCardStyle}>
-        <h2 style={cardTitleStyle}>進捗</h2>
+        <h2 style={cardTitleStyle}>{t.progress}</h2>
         <div>
           <div style={percentageStyle}>{(progress * 100).toFixed(2)}%</div>
           <ProgressBar progress={progress} style={progressBarStyle}/>
@@ -205,22 +200,26 @@ export const CostCalcPage = withRouter(({history}) => {
       </Card>
 
       <Card style={costCardStyle}>
-        <h2 style={cardTitleStyle}>必要素材</h2>
-        {hasCosts ?
+        <h2 style={cardTitleStyle}>{t.requiredMaterials}</h2>
+        {hasCosts ? (
           <CardButton
             onAnimationFinish={goToItemInput}
-            style={inputItemsButtonStyle}>
-            所持数入力
-          </CardButton> : null}
+            style={inputItemsButtonStyle}
+          >
+            {t.inputOwned}
+          </CardButton>
+        ) : null}
         <div style={costListStyle}>
-          {hasCosts ? requiredItemList : <div style={emptyMessageStyle}>なし</div>}
+          {hasCosts ? requiredItemList : <div style={emptyMessageStyle}>{t.none}</div>}
         </div>
-        {hasCosts && isTooLong ?
+        {hasCosts && isTooLong ? (
           <CardButton
             onAnimationFinish={goToItemInput}
-            style={inputItemsButtonStyle}>
-            所持数入力
-          </CardButton> : null}
+            style={inputItemsButtonStyle}
+          >
+            {t.inputOwned}
+          </CardButton>
+        ) : null}
       </Card>
     </div>
   );

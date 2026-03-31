@@ -1,129 +1,138 @@
 import { Bullet, BulletCost, BulletType, GbfItem, GbfItemCost } from './gbf';
 
 // アイテム
-const ironCluster = new GbfItem({ja: '鉄鉱石'}, 'iron-cluster');
-const blisteringOre = new GbfItem({ja: '赤熱鉱'}, 'blistering-ore');
-const untamedFlame = new GbfItem({ja: '原初の砂'}, 'untamed-flame');
-const prosperityFlame = new GbfItem({ja: '栄華の炎'}, 'prosperity-flame');
-const steelLiquid = new GbfItem({ja: 'リキッドスチール'}, 'steel-liquid');
+const ironCluster = new GbfItem({ja: '鉄鉱石', en: 'Iron Cluster'}, 'iron-cluster');
+const blisteringOre = new GbfItem({ja: '赤熱鉱', en: 'Blistering Ore'}, 'blistering-ore');
+const untamedFlame = new GbfItem({ja: '原初の砂', en: 'Untamed Flame'}, 'untamed-flame');
+const prosperityFlame = new GbfItem({ja: '栄華の炎', en: 'Prosperity Flame'}, 'prosperity-flame');
+const steelLiquid = new GbfItem({ja: 'リキッドスチール', en: 'Steel Liquid'}, 'steel-liquid');
 
-const fireOrb = new GbfItem({ja: '炎の宝珠'}, 'fire-orb');
-const infernoOrb = new GbfItem({ja: '紅蓮の宝珠'}, 'inferno-orb');
-const infernalWhorl = new GbfItem({ja: 'ファイア・ジーン'}, 'infernal-whorl');
-const waterOrb = new GbfItem({ja: '水の宝珠'}, 'water-orb');
-const frostOrb = new GbfItem({ja: '霧氷の宝珠'}, 'frost-orb');
-const tidalWhorl = new GbfItem({ja: 'アクア・ジーン'}, 'tidal-whorl');
-const windOrb = new GbfItem({ja: '風の宝珠'}, 'wind-orb');
-const cycloneOrb = new GbfItem({ja: '烈空の宝珠'}, 'cyclone-orb');
-const tempestWhorl = new GbfItem({ja: 'ウィンド・ジーン'}, 'tempest-whorl');
-const earthOrb = new GbfItem({ja: '土の宝珠'}, 'earth-orb');
-const rumblingOrb = new GbfItem({ja: '大地の宝珠'}, 'rumbling-orb');
-const seismicWhorl = new GbfItem({ja: 'アース・ジーン'}, 'seismic-whorl');
-const lightOrb = new GbfItem({ja: '光の宝珠'}, 'light-orb');
-const shiningOrb = new GbfItem({ja: '煌光の宝珠'}, 'shining-orb');
-const radiantWhorl = new GbfItem({ja: 'ホーリー・ジーン'}, 'radiant-whorl');
-const darkOrb = new GbfItem({ja: '闇の宝珠'}, 'dark-orb');
-const abysmOrb = new GbfItem({ja: '奈落の宝珠'}, 'abysm-orb');
-const umbralWhorl = new GbfItem({ja: 'ダーク・ジーン'}, 'umbral-whorl');
+const fireOrb = new GbfItem({ja: '炎の宝珠', en: 'Fire Orb'}, 'fire-orb');
+const infernoOrb = new GbfItem({ja: '紅蓮の宝珠', en: 'Inferno Orb'}, 'inferno-orb');
+const infernalWhorl = new GbfItem({ja: 'ファイア・ジーン', en: 'Infernal Whorl'}, 'infernal-whorl');
+const waterOrb = new GbfItem({ja: '水の宝珠', en: 'Water Orb'}, 'water-orb');
+const frostOrb = new GbfItem({ja: '霧氷の宝珠', en: 'Frost Orb'}, 'frost-orb');
+const tidalWhorl = new GbfItem({ja: 'アクア・ジーン', en: 'Tidal Whorl'}, 'tidal-whorl');
+const windOrb = new GbfItem({ja: '風の宝珠', en: 'Wind Orb'}, 'wind-orb');
+const cycloneOrb = new GbfItem({ja: '烈空の宝珠', en: 'Cyclone Orb'}, 'cyclone-orb');
+const tempestWhorl = new GbfItem({ja: 'ウィンド・ジーン', en: 'Tempest Whorl'}, 'tempest-whorl');
+const earthOrb = new GbfItem({ja: '土の宝珠', en: 'Earth Orb'}, 'earth-orb');
+const rumblingOrb = new GbfItem({ja: '大地の宝珠', en: 'Rumbling Orb'}, 'rumbling-orb');
+const seismicWhorl = new GbfItem({ja: 'アース・ジーン', en: 'Seismic Whorl'}, 'seismic-whorl');
+const lightOrb = new GbfItem({ja: '光の宝珠', en: 'Light Orb'}, 'light-orb');
+const shiningOrb = new GbfItem({ja: '煌光の宝珠', en: 'Shining Orb'}, 'shining-orb');
+const radiantWhorl = new GbfItem({ja: 'ホーリー・ジーン', en: 'Radiant Whorl'}, 'radiant-whorl');
+const darkOrb = new GbfItem({ja: '闇の宝珠', en: 'Dark Orb'}, 'dark-orb');
+const abysmOrb = new GbfItem({ja: '奈落の宝珠', en: 'Abysm Orb'}, 'abysm-orb');
+const umbralWhorl = new GbfItem({ja: 'ダーク・ジーン', en: 'Umbral Whorl'}, 'umbral-whorl');
 
-const hollowSoul = new GbfItem({ja: '虚ろなる魄'}, 'hollow-soul');
-const corrodedCartridge = new GbfItem({ja: '錆びた薬莢'}, 'corroded-cartridge');
-const primevalHorn = new GbfItem({ja: 'バハムートの紫電角'}, 'primeval-horn');
-const bastionBlock = new GbfItem({ja: '要塞の壁片'}, 'bastion-block');
-const sandBrick = new GbfItem({ja: '砂レンガ'}, 'sand-brick');
-const coarseAllvium = new GbfItem({ja: '真理の土'}, 'coarse-alluvium');
-const silverCentrum = new GbfItem({ja: '銀天の輝き'}, 'silver-centrum');
-const explosiveMaterial = new GbfItem({ja: '赤色火薬の原料'}, 'explosive-material');
-const fineSandBottle = new GbfItem({ja: '綺麗な砂'}, 'fine-sand-bottle');
-const flyingSprout = new GbfItem({ja: '風切四つ葉'}, 'flying-sprout');
-const flawedPrism = new GbfItem({ja: '星晶の欠片'}, 'flawed-prism');
-const lacrimosa = new GbfItem({ja: 'ラクリモサ'}, 'lacrimosa');
-const meteorite = new GbfItem({ja: 'メテオライト'}, 'meteorite');
-const graySandstone = new GbfItem({ja: '灰白砂岩'}, 'gray-sandstone');
-const rustyEave = new GbfItem({ja: '錆びついた掛瓦'}, 'rusty-eave');
-const antiqueCloth = new GbfItem({ja: '古代布'}, 'antique-cloth');
-const bloodAmber = new GbfItem({ja: 'オルディネシュタイン'}, 'blood-amber');
+const hollowSoul = new GbfItem({ja: '虚ろなる魄', en: 'Hollow Soul'}, 'hollow-soul');
+const corrodedCartridge = new GbfItem({ja: '錆びた薬莢', en: 'Corroded Cartridge'}, 'corroded-cartridge');
+const primevalHorn = new GbfItem({ja: 'バハムートの紫電角', en: 'Primeval Horn'}, 'primeval-horn');
+const bastionBlock = new GbfItem({ja: '要塞の壁片', en: 'Bastion Block'}, 'bastion-block');
+const sandBrick = new GbfItem({ja: '砂レンガ', en: 'Sand Brick'}, 'sand-brick');
+const coarseAllvium = new GbfItem({ja: '真理の土', en: 'Coarse Alluvium'}, 'coarse-alluvium');
+const silverCentrum = new GbfItem({ja: '銀天の輝き', en: 'Silver Centrum'}, 'silver-centrum');
+const explosiveMaterial = new GbfItem({ja: '赤色火薬の原料', en: 'Explosive Material'}, 'explosive-material');
+const fineSandBottle = new GbfItem({ja: '綺麗な砂', en: 'Fine Sand Bottle'}, 'fine-sand-bottle');
+const flyingSprout = new GbfItem({ja: '風切四つ葉', en: 'Flying Sprout'}, 'flying-sprout');
+const flawedPrism = new GbfItem({ja: '星晶の欠片', en: 'Flawed Prism'}, 'flawed-prism');
+const lacrimosa = new GbfItem({ja: 'ラクリモサ', en: 'Lacrimosa'}, 'lacrimosa');
+const meteorite = new GbfItem({ja: 'メテオライト', en: 'Meteorite'}, 'meteorite');
+const graySandstone = new GbfItem({ja: '灰白砂岩', en: 'Gray Sandstone'}, 'gray-sandstone');
+const rustyEave = new GbfItem({ja: '錆びついた掛瓦', en: 'Rusty Eave'}, 'rusty-eave');
+const antiqueCloth = new GbfItem({ja: '古代布', en: 'Antique Cloth'}, 'antique-cloth');
+const bloodAmber = new GbfItem({ja: 'オルディネシュタイン', en: 'Blood Amber'}, 'blood-amber');
 
-const resoluteReactor = new GbfItem({ja: 'プロミネンスリアクター'}, 'resolute-reactor');
-const fannedFin = new GbfItem({ja: '海神の扇尾'}, 'fanned-fin');
-const genesisBud = new GbfItem({ja: '創樹の花蕾'}, 'genesis-bud');
-const greenDragonEye = new GbfItem({ja: '嵐竜の琥珀眼'}, 'green-dragon-eye');
-const primalBit = new GbfItem({ja: 'プライマルビット'}, 'primal-bit');
-const blackFogSphere = new GbfItem({ja: '黒霧の結晶'}, 'black-fog-sphere');
+const resoluteReactor = new GbfItem({ja: 'プロミネンスリアクター', en: 'Resolute Reactor'}, 'resolute-reactor');
+const fannedFin = new GbfItem({ja: '海神の扇尾', en: 'Fanned Fin'}, 'fanned-fin');
+const genesisBud = new GbfItem({ja: '創樹の花蕾', en: 'Genesis Bud'}, 'genesis-bud');
+const greenDragonEye = new GbfItem({ja: '嵐竜の琥珀眼', en: 'Green Dragon Eye'}, 'green-dragon-eye');
+const primalBit = new GbfItem({ja: 'プライマルビット', en: 'Primal Bit'}, 'primal-bit');
+const blackFogSphere = new GbfItem({ja: '黒霧の結晶', en: 'Black Fog Sphere'}, 'black-fog-sphere');
 
-const brokenTeacup = new GbfItem({ja: '割れたティーカップ'}, 'broken-teacup');
-const rawGemstone = new GbfItem({ja: '天然翡翠'}, 'raw-gemstone');
-const jumboBeastBone = new GbfItem({ja: '巨獣骨'}, 'jumbo-beast-bone');
-const translucentSilk = new GbfItem({ja: '透き通るような絹'}, 'translucent-silk');
-const maliceFragment = new GbfItem({ja: 'マリス・フラグメント'}, 'malice-fragment');
+const brokenTeacup = new GbfItem({ja: '割れたティーカップ', en: 'Broken Teacup'}, 'broken-teacup');
+const rawGemstone = new GbfItem({ja: '天然翡翠', en: 'Raw Gemstone'}, 'raw-gemstone');
+const jumboBeastBone = new GbfItem({ja: '巨獣骨', en: 'Jumbo Beast Bone'}, 'jumbo-beast-bone');
+const translucentSilk = new GbfItem({ja: '透き通るような絹', en: 'Translucent Silk'}, 'translucent-silk');
+const maliceFragment = new GbfItem({ja: 'マリス・フラグメント', en: 'Malice Fragment'}, 'malice-fragment');
 
-const ifritAnima = new GbfItem({ja: 'イフリートのアニマ'}, 'ifrit-anima');
-const redTome = new GbfItem({ja: '赤の書'}, 'red-tome');
-const hellfireScroll = new GbfItem({ja: '業火の巻'}, 'hellfire-scroll');
-const redDragonScale = new GbfItem({ja: '赤竜鱗'}, 'red-dragon-scale');
-const trueFireAnima = new GbfItem({ja: '真なる火のアニマ'}, 'true-fire-anima');
-const fireQuartz = new GbfItem({ja: '火晶のエレメント'}, 'fire-quartz');
+const ifritAnima = new GbfItem({ja: 'イフリートのアニマ', en: 'Ifrit Anima'}, 'ifrit-anima');
+const redTome = new GbfItem({ja: '赤の書', en: 'Red Tome'}, 'red-tome');
+const hellfireScroll = new GbfItem({ja: '業火の巻', en: 'Hellfire Scroll'}, 'hellfire-scroll');
+const redDragonScale = new GbfItem({ja: '赤竜鱗', en: 'Red Dragon Scale'}, 'red-dragon-scale');
+const trueFireAnima = new GbfItem({ja: '真なる火のアニマ', en: 'True Fire Anima'}, 'true-fire-anima');
+const fireQuartz = new GbfItem({ja: '火晶のエレメント', en: 'Fire Quartz'}, 'fire-quartz');
 
-const cocytusAnima = new GbfItem({ja: 'コキュートスのアニマ'}, 'cocytus-anima');
-const blueTome = new GbfItem({ja: '青の書'}, 'blue-tome');
-const floodScroll = new GbfItem({ja: '濁流の巻'}, 'flood-scroll');
-const blueDragonScale = new GbfItem({ja: '青竜鱗'}, 'blue-dragon-scale');
-const trueWaterAnima = new GbfItem({ja: '真なる水のアニマ'}, 'true-water-anima');
-const waterQuartz = new GbfItem({ja: '水晶のエレメント'}, 'water-quartz');
+const cocytusAnima = new GbfItem({ja: 'コキュートスのアニマ', en: 'Cocytus Anima'}, 'cocytus-anima');
+const blueTome = new GbfItem({ja: '青の書', en: 'Blue Tome'}, 'blue-tome');
+const floodScroll = new GbfItem({ja: '濁流の巻', en: 'Flood Scroll'}, 'flood-scroll');
+const blueDragonScale = new GbfItem({ja: '青竜鱗', en: 'Blue Dragon Scale'}, 'blue-dragon-scale');
+const trueWaterAnima = new GbfItem({ja: '真なる水のアニマ', en: 'True Water Anima'}, 'true-water-anima');
+const waterQuartz = new GbfItem({ja: '水晶のエレメント', en: 'Water Quartz'}, 'water-quartz');
 
-const vohuManahAnima = new GbfItem({ja: 'ウォフマナフのアニマ'}, 'vohu-manah-anima');
-const brownTome = new GbfItem({ja: '橙の書'}, 'brown-tome');
-const thunderScroll = new GbfItem({ja: '地裂の巻'}, 'thunder-scroll');
-const brownDragonScale = new GbfItem({ja: '地竜鱗'}, 'brown-dragon-scale');
-const trueEarthAnima = new GbfItem({ja: '真なる土のアニマ'}, 'true-earth-anima');
-const earthQuartz = new GbfItem({ja: '土晶のエレメント'}, 'earth-quartz');
+const vohuManahAnima = new GbfItem({ja: 'ウォフマナフのアニマ', en: 'Vohu Manah Anima'}, 'vohu-manah-anima');
+const brownTome = new GbfItem({ja: '橙の書', en: 'Brown Tome'}, 'brown-tome');
+const thunderScroll = new GbfItem({ja: '地裂の巻', en: 'Thunder Scroll'}, 'thunder-scroll');
+const brownDragonScale = new GbfItem({ja: '地竜鱗', en: 'Brown Dragon Scale'}, 'brown-dragon-scale');
+const trueEarthAnima = new GbfItem({ja: '真なる土のアニマ', en: 'True Earth Anima'}, 'true-earth-anima');
+const earthQuartz = new GbfItem({ja: '土晶のエレメント', en: 'Earth Quartz'}, 'earth-quartz');
 
-const sagittariusAnima = new GbfItem({ja: 'サジタリウスのアニマ'}, 'sagittarius-anima');
-const greenTome = new GbfItem({ja: '緑の書'}, 'green-tome');
-const galeScroll = new GbfItem({ja: '疾風の巻'}, 'gale-scroll');
-const greenDragonScale = new GbfItem({ja: '風竜鱗'}, 'green-dragon-scale');
-const trueWindAnima = new GbfItem({ja: '真なる風のアニマ'}, 'true-wind-anima');
-const windQuartz = new GbfItem({ja: '風晶のエレメント'}, 'wind-quartz');
+const sagittariusAnima = new GbfItem({ja: 'サジタリウスのアニマ', en: 'Sagittarius Anima'}, 'sagittarius-anima');
+const greenTome = new GbfItem({ja: '緑の書', en: 'Green Tome'}, 'green-tome');
+const galeScroll = new GbfItem({ja: '疾風の巻', en: 'Gale Scroll'}, 'gale-scroll');
+const greenDragonScale = new GbfItem({ja: '風竜鱗', en: 'Green Dragon Scale'}, 'green-dragon-scale');
+const trueWindAnima = new GbfItem({ja: '真なる風のアニマ', en: 'True Wind Anima'}, 'true-wind-anima');
+const windQuartz = new GbfItem({ja: '風晶のエレメント', en: 'Wind Quartz'}, 'wind-quartz');
 
-const corowAnima = new GbfItem({ja: 'コロゥのアニマ'}, 'corow-anima');
-const whiteTome = new GbfItem({ja: '白の書'}, 'white-tome');
-const skylightScroll = new GbfItem({ja: '天光の巻'}, 'skylight-scroll');
-const whiteDragonScale = new GbfItem({ja: '白竜鱗'}, 'white-dragon-scale');
-const trueLightAnima = new GbfItem({ja: '真なる光のアニマ'}, 'true-light-anima');
-const lightQuartz = new GbfItem({ja: '光晶のエレメント'}, 'light-quartz');
+const corowAnima = new GbfItem({ja: 'コロゥのアニマ', en: 'Corow Anima'}, 'corow-anima');
+const whiteTome = new GbfItem({ja: '白の書', en: 'White Tome'}, 'white-tome');
+const skylightScroll = new GbfItem({ja: '天光の巻', en: 'Skylight Scroll'}, 'skylight-scroll');
+const whiteDragonScale = new GbfItem({ja: '白竜鱗', en: 'White Dragon Scale'}, 'white-dragon-scale');
+const trueLightAnima = new GbfItem({ja: '真なる光のアニマ', en: 'True Light Anima'}, 'true-light-anima');
+const lightQuartz = new GbfItem({ja: '光晶のエレメント', en: 'Light Quartz'}, 'light-quartz');
 
-const diabloAnima = new GbfItem({ja: 'ディアボロスのアニマ'}, 'diablo-anima');
-const blackTome = new GbfItem({ja: '黒の書'}, 'black-tome');
-const chasmScroll = new GbfItem({ja: '深淵の巻'}, 'chasm-scroll');
-const blackDragonScale = new GbfItem({ja: '黒竜鱗'}, 'black-dragon-scale');
-const trueDarkAnima = new GbfItem({ja: '真なる闇のアニマ'}, 'true-dark-anima');
-const darkQuartz = new GbfItem({ja: '闇晶のエレメント'}, 'dark-quartz');
+const diabloAnima = new GbfItem({ja: 'ディアボロスのアニマ', en: 'Diablo Anima'}, 'diablo-anima');
+const blackTome = new GbfItem({ja: '黒の書', en: 'Black Tome'}, 'black-tome');
+const chasmScroll = new GbfItem({ja: '深淵の巻', en: 'Chasm Scroll'}, 'chasm-scroll');
+const blackDragonScale = new GbfItem({ja: '黒竜鱗', en: 'Black Dragon Scale'}, 'black-dragon-scale');
+const trueDarkAnima = new GbfItem({ja: '真なる闇のアニマ', en: 'True Dark Anima'}, 'true-dark-anima');
+const darkQuartz = new GbfItem({ja: '闇晶のエレメント', en: 'Dark Quartz'}, 'dark-quartz');
 
-const fireGrimoire = new GbfItem({ja: '灼熱の書'}, 'fire-grimoire');
-const waterGrimoire = new GbfItem({ja: '水分の書'}, 'water-grimoire');
-const earthGrimoire = new GbfItem({ja: '巨人の書'}, 'earth-grimoire');
-const windGrimoire = new GbfItem({ja: '風凪の書'}, 'wind-grimoire');
+const fireGrimoire = new GbfItem({ja: '灼熱の書', en: 'Fire Grimoire'}, 'fire-grimoire');
+const waterGrimoire = new GbfItem({ja: '水分の書', en: 'Water Grimoire'}, 'water-grimoire');
+const earthGrimoire = new GbfItem({ja: '巨人の書', en: 'Earth Grimoire'}, 'earth-grimoire');
+const windGrimoire = new GbfItem({ja: '風凪の書', en: 'Wind Grimoire'}, 'wind-grimoire');
 
-const fireUrn = new GbfItem({ja: '火のプシュケー'}, 'fire-urn');
-const waterUrn = new GbfItem({ja: '水のプシュケー'}, 'water-urn');
-const earthUrn = new GbfItem({ja: '土のプシュケー'}, 'earth-urn');
-const windUrn = new GbfItem({ja: '風のプシュケー'}, 'wind-urn');
-const lightUrn = new GbfItem({ja: '光のプシュケー'}, 'light-urn');
-const darkUrn = new GbfItem({ja: '闇のプシュケー'}, 'dark-urn');
+const fireUrn = new GbfItem({ja: '火のプシュケー', en: 'Fire Urn'}, 'fire-urn');
+const waterUrn = new GbfItem({ja: '水のプシュケー', en: 'Water Urn'}, 'water-urn');
+const earthUrn = new GbfItem({ja: '土のプシュケー', en: 'Earth Urn'}, 'earth-urn');
+const windUrn = new GbfItem({ja: '風のプシュケー', en: 'Wind Urn'}, 'wind-urn');
+const lightUrn = new GbfItem({ja: '光のプシュケー', en: 'Light Urn'}, 'light-urn');
+const darkUrn = new GbfItem({ja: '闇のプシュケー', en: 'Dark Urn'}, 'dark-urn');
 
-const rubeusCentrum = new GbfItem({ja: '赤星の輝き'}, 'rubeus-centrum');
-const indicusCentrum = new GbfItem({ja: '青星の輝き'}, 'indicus-centrum');
-const luteusCentrum = new GbfItem({ja: '黄星の輝き'}, 'luteus-centrum');
-const galbinusCentrum = new GbfItem({ja: '緑星の輝き'}, 'galbinus-centrum');
-const niveusCentrum = new GbfItem({ja: '白星の輝き'}, 'niveus-centrum');
-const aterCentrum = new GbfItem({ja: '黒星の輝き'}, 'ater-centrum');
+const rubeusCentrum = new GbfItem({ja: '赤星の輝き', en: 'Rubeus Centrum'}, 'rubeus-centrum');
+const indicusCentrum = new GbfItem({ja: '青星の輝き', en: 'Indicus Centrum'}, 'indicus-centrum');
+const luteusCentrum = new GbfItem({ja: '黄星の輝き', en: 'Luteus Centrum'}, 'luteus-centrum');
+const galbinusCentrum = new GbfItem({ja: '緑星の輝き', en: 'Galbinus Centrum'}, 'galbinus-centrum');
+const niveusCentrum = new GbfItem({ja: '白星の輝き', en: 'Niveus Centrum'}, 'niveus-centrum');
+const aterCentrum = new GbfItem({ja: '黒星の輝き', en: 'Ater Centrum'}, 'ater-centrum');
+
+const tearsOfTheApocalypse = new GbfItem({ja: '終末の暗晶', en: 'Tears Of The Apocalypse'}, 'tears-of-the-apocalypse');
+const damascusCrystal = new GbfItem({ja: 'ダマスカス骸晶', en: 'Damascus Crystal'}, 'damascus-crystal');
+const abyssalWing = new GbfItem({ja: '漆黒の棘翅', en: 'Abyssal Wing'},'abyssal-wing');
+const cunningDevilsHorn = new GbfItem({ja: '狡知の魔角', en: 'Cunning Devil\'s Horn'},'cunning-devils-horn');
+const ultimateMemory = new GbfItem({ja: 'アルテマメモリ', en: 'Ultimate Memory'},'ultimate-memory');
+const goldBrick = new GbfItem({ja: 'ヒヒイロカネ', en: 'Gold Brick'},'golden-brick');
+const provenanceCrystal = new GbfItem({ja: '極理の結晶', en: 'Provenance Crystal'},  'provenance-crystal');
+const eternitySand = new GbfItem({ja: '刻流砂', en: 'Eternity Sand'},'eternity-sand');
+const apocalypticBlackFeather = new GbfItem({ja: '終末を齎す黒羽', en: 'Apocalyptic Black Feather'},'apocalyptic-black-feather');
 
 
 
 // パラベラム弾
 const ironBullet = new Bullet(
-  {ja: 'アイアンバレット'},
-  'iron-bullet',
+  {ja: 'アイアンバレット', en: 'Iron Bullet'}, 'iron-bullet',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 2),
@@ -136,8 +145,7 @@ const ironBullet = new Bullet(
 );
 
 const ironBullet2 = new Bullet(
-  {ja: 'アイアンバレットII'},
-  'iron-bullet-2',
+  {ja: 'アイアンバレットII', en: 'Iron Bullet 2'}, 'iron-bullet-2',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 5),
@@ -151,8 +159,7 @@ const ironBullet2 = new Bullet(
 );
 
 const ironBullet3 = new Bullet(
-  {ja: 'アイアンバレットIII'},
-  'iron-bullet-3',
+  {ja: 'アイアンバレットIII', en: 'Iron Bullet 3'}, 'iron-bullet-3',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 12),
@@ -167,8 +174,7 @@ const ironBullet3 = new Bullet(
 );
 
 const ironBullet4 = new Bullet(
-  {ja: 'アイアンバレットIV'},
-  'iron-bullet-4',
+  {ja: 'アイアンバレットIV', en: 'Iron Bullet 4'}, 'iron-bullet-4',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 25),
@@ -183,8 +189,7 @@ const ironBullet4 = new Bullet(
 );
 
 const ironBullet5 = new Bullet(
-  {ja: 'アイアンバレットV'},
-  'iron-bullet-5',
+  {ja: 'アイアンバレットV', en: 'Iron Bullet 5'}, 'iron-bullet-5',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 40),
@@ -199,8 +204,7 @@ const ironBullet5 = new Bullet(
 );
 
 const rapidBullet = new Bullet(
-  {ja: 'ライトバレット'},
-  'rapid-bullet',
+  {ja: 'ライトバレット', en: 'Rapid Bullet'}, 'rapid-bullet',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 2),
@@ -214,8 +218,7 @@ const rapidBullet = new Bullet(
 );
 
 const rapidBullet2 = new Bullet(
-  {ja: 'ライトバレットII'},
-  'rapid-bullet-2',
+  {ja: 'ライトバレットII', en: 'Rapid Bullet 2'}, 'rapid-bullet-2',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 4),
@@ -230,8 +233,7 @@ const rapidBullet2 = new Bullet(
 );
 
 const rapidBullet3 = new Bullet(
-  {ja: 'ライトバレットIII'},
-  'rapid-bullet-3',
+  {ja: 'ライトバレットIII', en: 'Rapid Bullet 3'}, 'rapid-bullet-3',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 20),
@@ -246,8 +248,7 @@ const rapidBullet3 = new Bullet(
 );
 
 const rapidBullet4 = new Bullet(
-  {ja: 'ライトバレットIV'},
-  'rapid-bullet-4',
+  {ja: 'ライトバレットIV', en: 'Rapid Bullet 4'}, 'rapid-bullet-4',
   BulletType.PARABELLUM,
   [
     new GbfItemCost(ironCluster, 30),
@@ -262,8 +263,7 @@ const rapidBullet4 = new Bullet(
 );
 
 const flameBullet = new Bullet(
-  {ja: 'フレイムバレット'},
-  'flame-bullet',
+  {ja: 'フレイムバレット', en: 'Flame Bullet'}, 'flame-bullet',
   BulletType.PARABELLUM,
   [
     new BulletCost(ironBullet, 5),
@@ -278,8 +278,7 @@ const flameBullet = new Bullet(
 );
 
 const poisonBullet = new Bullet(
-  {ja: 'ポイズンバレット'},
-  'poison-bullet',
+  {ja: 'ポイズンバレット', en: 'Poison Bullet'}, 'poison-bullet',
   BulletType.PARABELLUM,
   [
     new BulletCost(ironBullet, 5),
@@ -294,8 +293,7 @@ const poisonBullet = new Bullet(
 );
 
 const sleepBullet = new Bullet(
-  {ja: 'スリープバレット'},
-  'sleep-bullet',
+  {ja: 'スリープバレット', en: 'Sleep Bullet'}, 'sleep-bullet',
   BulletType.PARABELLUM,
   [
     new BulletCost(ironBullet, 5),
@@ -310,8 +308,7 @@ const sleepBullet = new Bullet(
 );
 
 const shieldBullet = new Bullet(
-  {ja: 'バリアシード'},
-  'shield-bullet',
+  {ja: 'バリアシード', en: 'Shield Bullet'}, 'shield-bullet',
   BulletType.PARABELLUM,
   [
     new BulletCost(rapidBullet2, 5),
@@ -326,8 +323,7 @@ const shieldBullet = new Bullet(
 );
 
 const charmBullet = new Bullet(
-  {ja: 'チャームバレット'},
-  'charm-bullet',
+  {ja: 'チャームバレット', en: 'Charm Bullet'}, 'charm-bullet',
   BulletType.PARABELLUM,
   [
     new BulletCost(ironBullet, 5),
@@ -342,8 +338,7 @@ const charmBullet = new Bullet(
 );
 
 const paralyzeBullet = new Bullet(
-  {ja: 'パラライズバレット'},
-  'paralyze-bullet',
+  {ja: 'パラライズバレット', en: 'Paralyze Bullet'}, 'paralyze-bullet',
   BulletType.PARABELLUM,
   [
     new BulletCost(ironBullet5, 1),
@@ -358,8 +353,7 @@ const paralyzeBullet = new Bullet(
 );
 
 const healingBullet = new Bullet(
-  {ja: 'ヒールバレット'},
-  'healing-bullet',
+  {ja: 'ヒールバレット', en: 'Healing Bullet'}, 'healing-bullet',
   BulletType.PARABELLUM,
   [
     new BulletCost(ironBullet5, 1),
@@ -375,8 +369,7 @@ const healingBullet = new Bullet(
 
 // ライフル弾
 const fullMetalJacket = new Bullet(
-  {ja: 'フルメタルジャケット'},
-  'full-metal-jacket',
+  {ja: 'フルメタルジャケット', en: 'Full Metal Jacket'}, 'full-metal-jacket',
   BulletType.RIFLE,
   [
     new GbfItemCost(ironCluster, 3),
@@ -391,8 +384,7 @@ const fullMetalJacket = new Bullet(
 );
 
 const fullMetalJacket2 = new Bullet(
-  {ja: 'フルメタルジャケットII'},
-  'full-metal-jacket-2',
+  {ja: 'フルメタルジャケットII', en: 'Full Metal Jacket 2'}, 'full-metal-jacket-2',
   BulletType.RIFLE,
   [
     new BulletCost(fullMetalJacket, 1),
@@ -407,8 +399,7 @@ const fullMetalJacket2 = new Bullet(
 );
 
 const fullMetalJacket3 = new Bullet(
-  {ja: 'フルメタルジャケットIII'},
-  'full-metal-jacket-3',
+  {ja: 'フルメタルジャケットIII', en: 'Full Metal Jacket 3'}, 'full-metal-jacket-3',
   BulletType.RIFLE,
   [
     new BulletCost(fullMetalJacket2, 2),
@@ -423,8 +414,7 @@ const fullMetalJacket3 = new Bullet(
 );
 
 const fullMetalJacket4 = new Bullet(
-  {ja: 'フルメタルジャケットIV'},
-  'full-metal-jacket-4',
+  {ja: 'フルメタルジャケットIV', en: 'Full Metal Jacket 4'}, 'full-metal-jacket-4',
   BulletType.RIFLE,
   [
     new BulletCost(fullMetalJacket3, 5),
@@ -439,8 +429,7 @@ const fullMetalJacket4 = new Bullet(
 );
 
 const fullMetalJacket5 = new Bullet(
-  {ja: 'フルメタルジャケットV'},
-  'full-metal-jacket-5',
+  {ja: 'フルメタルジャケットV', en: 'Full Metal Jacket 5'}, 'full-metal-jacket-5',
   BulletType.RIFLE,
   [
     new BulletCost(fullMetalJacket4, 5),
@@ -455,8 +444,7 @@ const fullMetalJacket5 = new Bullet(
 );
 
 const exploder = new Bullet(
-  {ja: 'エクスプローダー'},
-  'exploder',
+  {ja: 'エクスプローダー', en: 'Exploder'}, 'exploder',
   BulletType.RIFLE,
   [
     new BulletCost(fullMetalJacket, 3),
@@ -471,8 +459,7 @@ const exploder = new Bullet(
 );
 
 const exploder2 = new Bullet(
-  {ja: 'エクスプローダーII'},
-  'exploder-2',
+  {ja: 'エクスプローダーII', en: 'Exploder 2'}, 'exploder-2',
   BulletType.RIFLE,
   [
     new BulletCost(exploder, 1),
@@ -487,8 +474,7 @@ const exploder2 = new Bullet(
 );
 
 const exploder3 = new Bullet(
-  {ja: 'エクスプローダーIII'},
-  'exploder-3',
+  {ja: 'エクスプローダーIII', en: 'Exploder 3'}, 'exploder-3',
   BulletType.RIFLE,
   [
     new BulletCost(exploder2, 2),
@@ -503,8 +489,7 @@ const exploder3 = new Bullet(
 );
 
 const armorPiercing = new Bullet(
-  {ja: 'アーマーピアシング'},
-  'armor-piercing',
+  {ja: 'アーマーピアシング', en: 'Armor Piercing'}, 'armor-piercing',
   BulletType.RIFLE,
   [
     new BulletCost(fullMetalJacket2, 3),
@@ -519,8 +504,7 @@ const armorPiercing = new Bullet(
 );
 
 const armorPiercing2 = new Bullet(
-  {ja: 'アーマーピアシングII'},
-  'armor-piercing-2',
+  {ja: 'アーマーピアシングII', en: 'Armor Piercing 2'}, 'armor-piercing-2',
   BulletType.RIFLE,
   [
     new BulletCost(armorPiercing, 1),
@@ -535,8 +519,7 @@ const armorPiercing2 = new Bullet(
 );
 
 const armorPiercing3 = new Bullet(
-  {ja: 'アーマーピアシングIII'},
-  'armor-piercing-3',
+  {ja: 'アーマーピアシングIII', en: 'Armor Piercing 3'}, 'armor-piercing-3',
   BulletType.RIFLE,
   [
     new BulletCost(armorPiercing2, 2),
@@ -551,8 +534,7 @@ const armorPiercing3 = new Bullet(
 );
 
 const silverBullet = new Bullet(
-  {ja: 'シルバーバレット'},
-  'silver-bullet',
+  {ja: 'シルバーバレット', en: 'Silver Bullet'}, 'silver-bullet',
   BulletType.RIFLE,
   [
     new BulletCost(fullMetalJacket2, 3),
@@ -567,8 +549,7 @@ const silverBullet = new Bullet(
 );
 
 const silverBullet2 = new Bullet(
-  {ja: 'シルバーバレットII'},
-  'silver-bullet-2',
+  {ja: 'シルバーバレットII', en: 'Silver Bullet 2'}, 'silver-bullet-2',
   BulletType.RIFLE,
   [
     new BulletCost(silverBullet, 7),
@@ -583,8 +564,7 @@ const silverBullet2 = new Bullet(
 );
 
 const silverBullet3 = new Bullet(
-  {ja: 'シルバーバレットIII'},
-  'silver-bullet-3',
+  {ja: 'シルバーバレットIII', en: 'Silver Bullet 3'}, 'silver-bullet-3',
   BulletType.RIFLE,
   [
     new BulletCost(silverBullet2, 10),
@@ -599,8 +579,7 @@ const silverBullet3 = new Bullet(
 );
 
 const goldBullet = new Bullet(
-  {ja: 'ゴールドバレット'},
-  'gold-bullet',
+  {ja: 'ゴールドバレット', en: 'Gold Bullet'}, 'gold-bullet',
   BulletType.RIFLE,
   [
     new BulletCost(silverBullet, 10),
@@ -614,8 +593,7 @@ const goldBullet = new Bullet(
 );
 
 const goldBullet2 = new Bullet(
-  {ja: 'ゴールドバレットII'},
-  'gold-bullet-2',
+  {ja: 'ゴールドバレットII', en: 'Gold Bullet 2'}, 'gold-bullet-2',
   BulletType.RIFLE,
   [
     new BulletCost(goldBullet, 2),
@@ -629,10 +607,101 @@ const goldBullet2 = new Bullet(
   }
 );
 
+const paradiseLostExpertModel = new Bullet(
+  {ja: 'Expert Model: Paradise Lost', en: 'Paradise Lost Expert Model'}, 'paradise-lost-expert-model',
+  BulletType.RIFLE,
+  [
+    new BulletCost(fullMetalJacket5, 3),
+    new GbfItemCost(tearsOfTheApocalypse, 150),
+    new GbfItemCost(damascusCrystal, 10)
+  ],
+  {
+    cssColorString: 'rgb(95,140,220)',
+    iconFileName: 'rifle-bullet.svg'
+  }
+);
+
+const chaosLegionExpertModel = new Bullet(
+  {ja: 'Expert Model: Chaos Legion', en: 'Expert Model: Chaos Legion'},
+  'chaos-legion-expert-model',
+  BulletType.RIFLE,
+  [
+    new BulletCost(fullMetalJacket5, 3),
+    new GbfItemCost(abyssalWing, 150),
+    new GbfItemCost(damascusCrystal, 10)
+  ],
+  {
+    cssColorString: 'rgb(92,67,145)',
+    iconFileName: 'rifle-bullet.svg'
+  }
+);
+
+const anagenesisExpertModel = new Bullet(
+  {ja: 'Expert Model: Anagenesis', en: 'Expert Model: Anagenesis'},
+  'anagenesis-expert-model',
+  BulletType.RIFLE,
+  [
+    new BulletCost(fullMetalJacket5, 3),
+    new GbfItemCost(cunningDevilsHorn, 150),
+    new GbfItemCost(damascusCrystal, 10)
+  ],
+  {
+    cssColorString: 'rgb(186,77,83)',
+    iconFileName: 'rifle-bullet.svg'
+  }
+);
+
+const genesisNovaExpertModel = new Bullet(
+  {ja: 'Expert Model: Genesis Nova', en: 'Expert Model: Genesis Nova'},
+  'genesis-nova-expert-model',
+  BulletType.RIFLE,
+  [
+    new BulletCost(fullMetalJacket5, 3),
+    new GbfItemCost(ultimateMemory, 150),
+    new GbfItemCost(damascusCrystal, 10),
+    new GbfItemCost(goldBrick, 1)
+  ],
+  {
+    cssColorString: 'rgb(73,140,214)',
+    iconFileName: 'rifle-bullet.svg'
+  }
+);
+
+const rationaleExitiumExpertModel = new Bullet(
+  {ja: 'Expert Model: Rationale Exitium', en: 'Expert Model: Rationale Exitium'},
+  'rationale-exitium-expert-model',
+  BulletType.RIFLE,
+  [
+    new BulletCost(anagenesisExpertModel, 3),
+    new GbfItemCost(provenanceCrystal, 200),
+    new GbfItemCost(goldBrick, 1),
+    new GbfItemCost(eternitySand, 3)
+  ],
+  {
+    cssColorString: 'rgb(109,127,206)',
+    iconFileName: 'rifle-bullet.svg'
+  }
+);
+
+const antiVasileiaExpertModel = new Bullet(
+  {ja: 'Expert Model: Anti Vasileia', en: 'Expert Model: Anti Vasileia'},
+  'anti-vasileia-expert-model',
+  BulletType.RIFLE,
+  [
+    new BulletCost(paradiseLostExpertModel, 3),
+    new GbfItemCost(apocalypticBlackFeather, 200),
+    new GbfItemCost(goldBrick, 1),
+    new GbfItemCost(eternitySand, 3)
+  ],
+  {
+    cssColorString: 'rgb(93,67,148)',
+    iconFileName: 'rifle-bullet.svg'
+  }
+);
+
 // カートリッジ
 const shotshell = new Bullet(
-  {ja: 'シェルバレット'},
-  'shotshell',
+  {ja: 'シェルバレット', en: 'Shotshell'}, 'shotshell',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(prosperityFlame, 4),
@@ -646,8 +715,7 @@ const shotshell = new Bullet(
 );
 
 const shotshell2 = new Bullet(
-  {ja: 'シェルバレットII'},
-  'shotshell-2',
+  {ja: 'シェルバレットII', en: 'Shotshell 2'}, 'shotshell-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(prosperityFlame, 7),
@@ -662,8 +730,7 @@ const shotshell2 = new Bullet(
 );
 
 const shotshell3 = new Bullet(
-  {ja: 'シェルバレットIII'},
-  'shotshell-3',
+  {ja: 'シェルバレットIII', en: 'Shotshell 3'}, 'shotshell-3',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(prosperityFlame, 10),
@@ -678,8 +745,7 @@ const shotshell3 = new Bullet(
 );
 
 const shotshell4 = new Bullet(
-  {ja: 'シェルバレットIV'},
-  'shotshell-4',
+  {ja: 'シェルバレットIV', en: 'Shotshell 4'}, 'shotshell-4',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(prosperityFlame, 20),
@@ -694,8 +760,7 @@ const shotshell4 = new Bullet(
 );
 
 const shotshell5 = new Bullet(
-  {ja: 'シェルバレットV'},
-  'shotshell-5',
+  {ja: 'シェルバレットV', en: 'Shotshell 5'}, 'shotshell-5',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(prosperityFlame, 30),
@@ -710,8 +775,7 @@ const shotshell5 = new Bullet(
 );
 
 const strikeShell = new Bullet(
-  {ja: 'アサルトシェル'},
-  'strike-shell',
+  {ja: 'アサルトシェル', en: 'Strike Shell'}, 'strike-shell',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(prosperityFlame, 7),
@@ -725,8 +789,7 @@ const strikeShell = new Bullet(
 );
 
 const strikeShell2 = new Bullet(
-  {ja: 'アサルトシェルII'},
-  'strike-shell-2',
+  {ja: 'アサルトシェルII', en: 'Strike Shell 2'}, 'strike-shell-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(prosperityFlame, 10),
@@ -741,8 +804,7 @@ const strikeShell2 = new Bullet(
 );
 
 const fireCylinder = new Bullet(
-  {ja: 'ヒートシリンダー'},
-  'fire-cylinder',
+  {ja: 'ヒートシリンダー', en: 'Fire Cylinder'}, 'fire-cylinder',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 2),
@@ -756,8 +818,7 @@ const fireCylinder = new Bullet(
 );
 
 const fireCylinder2 = new Bullet(
-  {ja: 'ヒートシリンダーII'},
-  'fire-cylinder-2',
+  {ja: 'ヒートシリンダーII', en: 'Fire Cylinder 2'}, 'fire-cylinder-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 5),
@@ -772,8 +833,7 @@ const fireCylinder2 = new Bullet(
 );
 
 const waterCylinder = new Bullet(
-  {ja: 'コールドシリンダー'},
-  'water-cylinder',
+  {ja: 'コールドシリンダー', en: 'Water Cylinder'}, 'water-cylinder',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 2),
@@ -787,8 +847,7 @@ const waterCylinder = new Bullet(
 );
 
 const waterCylinder2 = new Bullet(
-  {ja: 'コールドシリンダーII'},
-  'water-cylinder-2',
+  {ja: 'コールドシリンダーII', en: 'Water Cylinder 2'}, 'water-cylinder-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 5),
@@ -803,8 +862,7 @@ const waterCylinder2 = new Bullet(
 );
 
 const earthCylinder = new Bullet(
-  {ja: 'アースシリンダー'},
-  'earth-cylinder',
+  {ja: 'アースシリンダー', en: 'Earth Cylinder'}, 'earth-cylinder',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 2),
@@ -818,8 +876,7 @@ const earthCylinder = new Bullet(
 );
 
 const earthCylinder2 = new Bullet(
-  {ja: 'アースシリンダーII'},
-  'earth-cylinder-2',
+  {ja: 'アースシリンダーII', en: 'Earth Cylinder 2'}, 'earth-cylinder-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 5),
@@ -834,8 +891,7 @@ const earthCylinder2 = new Bullet(
 );
 
 const windCylinder = new Bullet(
-  {ja: 'ゲイルシリンダー'},
-  'wind-cylinder',
+  {ja: 'ゲイルシリンダー', en: 'Wind Cylinder'}, 'wind-cylinder',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 2),
@@ -849,8 +905,7 @@ const windCylinder = new Bullet(
 );
 
 const windCylinder2 = new Bullet(
-  {ja: 'ゲイルシリンダーII'},
-  'wind-cylinder-2',
+  {ja: 'ゲイルシリンダーII', en: 'Wind Cylinder 2'}, 'wind-cylinder-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 5),
@@ -865,8 +920,7 @@ const windCylinder2 = new Bullet(
 );
 
 const lightCylinder = new Bullet(
-  {ja: 'サンダーシリンダー'},
-  'light-cylinder',
+  {ja: 'サンダーシリンダー', en: 'Light Cylinder'}, 'light-cylinder',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 2),
@@ -880,8 +934,7 @@ const lightCylinder = new Bullet(
 );
 
 const lightCylinder2 = new Bullet(
-  {ja: 'サンダーシリンダーII'},
-  'light-cylinder-2',
+  {ja: 'サンダーシリンダーII', en: 'Light Cylinder 2'}, 'light-cylinder-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 5),
@@ -896,8 +949,7 @@ const lightCylinder2 = new Bullet(
 );
 
 const darkCylinder = new Bullet(
-  {ja: 'ダークシリンダー'},
-  'dark-cylinder',
+  {ja: 'ダークシリンダー', en: 'Dark Cylinder'}, 'dark-cylinder',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 2),
@@ -911,8 +963,7 @@ const darkCylinder = new Bullet(
 );
 
 const darkCylinder2 = new Bullet(
-  {ja: 'ダークシリンダーII'},
-  'dark-cylinder-2',
+  {ja: 'ダークシリンダーII', en: 'Dark Cylinder 2'}, 'dark-cylinder-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(antiqueCloth, 5),
@@ -927,8 +978,7 @@ const darkCylinder2 = new Bullet(
 );
 
 const guardBreaker = new Bullet(
-  {ja: 'アーマーブレイカー'},
-  'guard-breaker',
+  {ja: 'アーマーブレイカー', en: 'Guard Breaker'}, 'guard-breaker',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(steelLiquid, 10),
@@ -943,8 +993,7 @@ const guardBreaker = new Bullet(
 );
 
 const guardBreaker2 = new Bullet(
-  {ja: 'アーマーブレイカーII'},
-  'guard-breaker-2',
+  {ja: 'アーマーブレイカーII', en: 'Guard Breaker 2'}, 'guard-breaker-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(steelLiquid, 24),
@@ -958,8 +1007,7 @@ const guardBreaker2 = new Bullet(
 );
 
 const slugShot = new Bullet(
-  {ja: 'スラッグショット'},
-  'slug-shot',
+  {ja: 'スラッグショット', en: 'Slug Shot'}, 'slug-shot',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(steelLiquid, 20),
@@ -974,8 +1022,7 @@ const slugShot = new Bullet(
 );
 
 const slugShot2 = new Bullet(
-  {ja: 'スラッグショットII'},
-  'slug-shot-2',
+  {ja: 'スラッグショットII', en: 'Slug Shot 2'}, 'slug-shot-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(steelLiquid, 70),
@@ -989,8 +1036,7 @@ const slugShot2 = new Bullet(
 );
 
 const stickyShell = new Bullet(
-  {ja: 'スティッキーシェル'},
-  'sticky-shell',
+  {ja: 'スティッキーシェル', en: 'Sticky Shell'}, 'sticky-shell',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(steelLiquid, 10),
@@ -1005,8 +1051,7 @@ const stickyShell = new Bullet(
 );
 
 const stickyShell2 = new Bullet(
-  {ja: 'スティッキーシェルII'},
-  'sticky-shell-2',
+  {ja: 'スティッキーシェルII', en: 'Sticky Shell 2'}, 'sticky-shell-2',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(steelLiquid, 20),
@@ -1020,8 +1065,7 @@ const stickyShell2 = new Bullet(
 );
 
 const chaiserShell = new Bullet(
-  {ja: 'チェイスシェル'},
-  'chaiser-shell',
+  {ja: 'チェイスシェル', en: 'Chaiser Shell'}, 'chaiser-shell',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(brokenTeacup, 10),
@@ -1036,8 +1080,7 @@ const chaiserShell = new Bullet(
 );
 
 const enhancingShell = new Bullet(
-  {ja: 'エンハンスシェル'},
-  'enhancing-shell',
+  {ja: 'エンハンスシェル', en: 'Enhancing Shell'}, 'enhancing-shell',
   BulletType.CARTRIDGE,
   [
     new GbfItemCost(jumboBeastBone, 10),
@@ -1053,8 +1096,7 @@ const enhancingShell = new Bullet(
 
 // エーテリアル弾
 const ifritPoint = new Bullet(
-  {ja: 'イフリートポイント'},
-  'ifrit-point',
+  {ja: 'イフリートポイント', en: 'Ifrit Point'}, 'ifrit-point',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(fireOrb, 20),
@@ -1069,8 +1111,7 @@ const ifritPoint = new Bullet(
 );
 
 const ifritPoint2 = new Bullet(
-  {ja: 'イフリートポイントII'},
-  'ifrit-point-2',
+  {ja: 'イフリートポイントII', en: 'Ifrit Point 2'}, 'ifrit-point-2',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(redTome, 24),
@@ -1085,8 +1126,7 @@ const ifritPoint2 = new Bullet(
 );
 
 const ifritPoint3 = new Bullet(
-  {ja: 'イフリートポイントIII'},
-  'ifrit-point-3',
+  {ja: 'イフリートポイントIII', en: 'Ifrit Point 3'}, 'ifrit-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(trueFireAnima, 20),
@@ -1101,8 +1141,7 @@ const ifritPoint3 = new Bullet(
 );
 
 const cocytusPoint = new Bullet(
-  {ja: 'コキュートスポイント'},
-  'cocytus-point',
+  {ja: 'コキュートスポイント', en: 'Cocytus Point'}, 'cocytus-point',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(waterOrb, 20),
@@ -1117,8 +1156,7 @@ const cocytusPoint = new Bullet(
 );
 
 const cocytusPoint2 = new Bullet(
-  {ja: 'コキュートスポイントII'},
-  'cocytus-point-2',
+  {ja: 'コキュートスポイントII', en: 'Cocytus Point 2'}, 'cocytus-point-2',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(blueTome, 24),
@@ -1133,8 +1171,7 @@ const cocytusPoint2 = new Bullet(
 );
 
 const cocytusPoint3 = new Bullet(
-  {ja: 'コキュートスポイントIII'},
-  'cocytus-point-3',
+  {ja: 'コキュートスポイントIII', en: 'Cocytus Point 3'}, 'cocytus-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(trueWaterAnima, 20),
@@ -1149,8 +1186,7 @@ const cocytusPoint3 = new Bullet(
 );
 
 const vohuManahPoint = new Bullet(
-  {ja: 'ウォフマナフポイント'},
-  'vohu-manah-point',
+  {ja: 'ウォフマナフポイント', en: 'Vohu Manah Point'}, 'vohu-manah-point',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(earthOrb, 20),
@@ -1165,8 +1201,7 @@ const vohuManahPoint = new Bullet(
 );
 
 const vohuManahPoint2 = new Bullet(
-  {ja: 'ウォフマナフポイントII'},
-  'vohu-manah-point-2',
+  {ja: 'ウォフマナフポイントII', en: 'Vohu Manah Point 2'}, 'vohu-manah-point-2',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(brownTome, 24),
@@ -1181,8 +1216,7 @@ const vohuManahPoint2 = new Bullet(
 );
 
 const vohuManahPoint3 = new Bullet(
-  {ja: 'ウォフマナフポイントIII'},
-  'vohu-manah-point-3',
+  {ja: 'ウォフマナフポイントIII', en: 'Vohu Manah Point 3'}, 'vohu-manah-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(trueEarthAnima, 20),
@@ -1197,8 +1231,7 @@ const vohuManahPoint3 = new Bullet(
 );
 
 const sagittariusPoint = new Bullet(
-  {ja: 'サジタリウスポイント'},
-  'sagittarius-point',
+  {ja: 'サジタリウスポイント', en: 'Sagittarius Point'}, 'sagittarius-point',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(windOrb, 20),
@@ -1213,8 +1246,7 @@ const sagittariusPoint = new Bullet(
 );
 
 const sagittariusPoint2 = new Bullet(
-  {ja: 'サジタリウスポイントII'},
-  'sagittarius-point-2',
+  {ja: 'サジタリウスポイントII', en: 'Sagittarius Point 2'}, 'sagittarius-point-2',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(greenTome, 24),
@@ -1229,8 +1261,7 @@ const sagittariusPoint2 = new Bullet(
 );
 
 const sagittariusPoint3 = new Bullet(
-  {ja: 'サジタリウスポイントIII'},
-  'sagittarius-point-3',
+  {ja: 'サジタリウスポイントIII', en: 'Sagittarius Point 3'}, 'sagittarius-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(trueWindAnima, 20),
@@ -1245,8 +1276,7 @@ const sagittariusPoint3 = new Bullet(
 );
 
 const corowPoint = new Bullet(
-  {ja: 'コロゥポイント'},
-  'corow-point',
+  {ja: 'コロゥポイント', en: 'Corow Point'}, 'corow-point',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(lightOrb, 20),
@@ -1261,8 +1291,7 @@ const corowPoint = new Bullet(
 );
 
 const corowPoint2 = new Bullet(
-  {ja: 'コロゥポイントII'},
-  'corow-point-2',
+  {ja: 'コロゥポイントII', en: 'Corow Point 2'}, 'corow-point-2',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(whiteTome, 24),
@@ -1277,8 +1306,7 @@ const corowPoint2 = new Bullet(
 );
 
 const corowPoint3 = new Bullet(
-  {ja: 'コロゥポイントIII'},
-  'corow-point-3',
+  {ja: 'コロゥポイントIII', en: 'Corow Point 3'}, 'corow-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(trueLightAnima, 20),
@@ -1293,8 +1321,7 @@ const corowPoint3 = new Bullet(
 );
 
 const diabloPoint = new Bullet(
-  {ja: 'ディアボロスポイント'},
-  'diablo-point',
+  {ja: 'ディアボロスポイント', en: 'Diablo Point'}, 'diablo-point',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(darkOrb, 20),
@@ -1309,8 +1336,7 @@ const diabloPoint = new Bullet(
 );
 
 const diabloPoint2 = new Bullet(
-  {ja: 'ディアボロスポイントII'},
-  'diablo-point-2',
+  {ja: 'ディアボロスポイントII', en: 'Diablo Point 2'}, 'diablo-point-2',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(blackTome, 24),
@@ -1325,8 +1351,7 @@ const diabloPoint2 = new Bullet(
 );
 
 const diabloPoint3 = new Bullet(
-  {ja: 'ディアボロスポイントIII'},
-  'diablo-point-3',
+  {ja: 'ディアボロスポイントIII', en: 'Diablo Point 3'}, 'diablo-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(trueDarkAnima, 20),
@@ -1341,8 +1366,7 @@ const diabloPoint3 = new Bullet(
 );
 
 const agniPoint = new Bullet(
-  {ja: 'アグニスポイント'},
-  'agni-point',
+  {ja: 'アグニスポイント', en: 'Agni Point'}, 'agni-point',
   BulletType.AETHERIAL,
   [
     new BulletCost(ifritPoint2, 3),
@@ -1356,8 +1380,7 @@ const agniPoint = new Bullet(
 );
 
 const agniPoint2 = new Bullet(
-  {ja: 'アグニスポイントII'},
-  'agni-point-2',
+  {ja: 'アグニスポイントII', en: 'Agni Point 2'}, 'agni-point-2',
   BulletType.AETHERIAL,
   [
     new BulletCost(agniPoint, 1),
@@ -1372,8 +1395,7 @@ const agniPoint2 = new Bullet(
 );
 
 const agniPoint3 = new Bullet(
-  {ja: 'アグニスポイントIII'},
-  'agni-point-3',
+  {ja: 'アグニスポイントIII', en: 'Agni Point 3'}, 'agni-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(rubeusCentrum, 20),
@@ -1388,8 +1410,7 @@ const agniPoint3 = new Bullet(
 );
 
 const neptunePoint = new Bullet(
-  {ja: 'ネプチューンポイント'},
-  'neptune-point',
+  {ja: 'ネプチューンポイント', en: 'Neptune Point'}, 'neptune-point',
   BulletType.AETHERIAL,
   [
     new BulletCost(cocytusPoint2, 3),
@@ -1403,8 +1424,7 @@ const neptunePoint = new Bullet(
 );
 
 const neptunePoint2 = new Bullet(
-  {ja: 'ネプチューンポイントII'},
-  'neptune-point-2',
+  {ja: 'ネプチューンポイントII', en: 'Neptune Point 2'}, 'neptune-point-2',
   BulletType.AETHERIAL,
   [
     new BulletCost(neptunePoint, 1),
@@ -1419,8 +1439,7 @@ const neptunePoint2 = new Bullet(
 );
 
 const neptunePoint3 = new Bullet(
-  {ja: 'ネプチューンポイントIII'},
-  'neptune-point-3',
+  {ja: 'ネプチューンポイントIII', en: 'Neptune Point 3'}, 'neptune-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(indicusCentrum, 20),
@@ -1435,8 +1454,7 @@ const neptunePoint3 = new Bullet(
 );
 
 const titanPoint = new Bullet(
-  {ja: 'ティターンポイント'},
-  'titan-point',
+  {ja: 'ティターンポイント', en: 'Titan Point'}, 'titan-point',
   BulletType.AETHERIAL,
   [
     new BulletCost(vohuManahPoint2, 3),
@@ -1450,8 +1468,7 @@ const titanPoint = new Bullet(
 );
 
 const titanPoint2 = new Bullet(
-  {ja: 'ティターンポイントII'},
-  'titan-point-2',
+  {ja: 'ティターンポイントII', en: 'Titan Point 2'}, 'titan-point-2',
   BulletType.AETHERIAL,
   [
     new BulletCost(titanPoint, 1),
@@ -1466,8 +1483,7 @@ const titanPoint2 = new Bullet(
 );
 
 const titanPoint3 = new Bullet(
-  {ja: 'ティターンポイントIII'},
-  'titan-point-3',
+  {ja: 'ティターンポイントIII', en: 'Titan Point 3'}, 'titan-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(luteusCentrum, 20),
@@ -1482,8 +1498,7 @@ const titanPoint3 = new Bullet(
 );
 
 const zephyrusPoint = new Bullet(
-  {ja: 'ゼピュロスポイント'},
-  'zephyrus-point',
+  {ja: 'ゼピュロスポイント', en: 'Zephyrus Point'}, 'zephyrus-point',
   BulletType.AETHERIAL,
   [
     new BulletCost(sagittariusPoint2, 3),
@@ -1497,8 +1512,7 @@ const zephyrusPoint = new Bullet(
 );
 
 const zephyrusPoint2 = new Bullet(
-  {ja: 'ゼピュロスポイントII'},
-  'zephyrus-point-2',
+  {ja: 'ゼピュロスポイントII', en: 'Zephyrus Point 2'}, 'zephyrus-point-2',
   BulletType.AETHERIAL,
   [
     new BulletCost(zephyrusPoint, 1),
@@ -1513,8 +1527,7 @@ const zephyrusPoint2 = new Bullet(
 );
 
 const zephyrusPoint3 = new Bullet(
-  {ja: 'ゼピュロスポイントIII'},
-  'zephyrus-point-3',
+  {ja: 'ゼピュロスポイントIII', en: 'Zephyrus Point 3'}, 'zephyrus-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(galbinusCentrum, 20),
@@ -1529,8 +1542,7 @@ const zephyrusPoint3 = new Bullet(
 );
 
 const zeusPoint = new Bullet(
-  {ja: 'ゼウスポイント'},
-  'zeus-point',
+  {ja: 'ゼウスポイント', en: 'Zeus Point'}, 'zeus-point',
   BulletType.AETHERIAL,
   [
     new BulletCost(corowPoint2, 3),
@@ -1545,8 +1557,7 @@ const zeusPoint = new Bullet(
 );
 
 const zeusPoint2 = new Bullet(
-  {ja: 'ゼウスポイントII'},
-  'zeus-point-2',
+  {ja: 'ゼウスポイントII', en: 'Zeus Point 2'}, 'zeus-point-2',
   BulletType.AETHERIAL,
   [
     new BulletCost(zeusPoint, 1),
@@ -1561,8 +1572,7 @@ const zeusPoint2 = new Bullet(
 );
 
 const zeusPoint3 = new Bullet(
-  {ja: 'ゼウスポイントIII'},
-  'zeus-point-3',
+  {ja: 'ゼウスポイントIII', en: 'Zeus Point 3'}, 'zeus-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(niveusCentrum, 20),
@@ -1577,8 +1587,7 @@ const zeusPoint3 = new Bullet(
 );
 
 const hadesPoint = new Bullet(
-  {ja: 'ハデスポイント'},
-  'hades-point',
+  {ja: 'ハデスポイント', en: 'Hades Point'}, 'hades-point',
   BulletType.AETHERIAL,
   [
     new BulletCost(diabloPoint2, 3),
@@ -1593,8 +1602,7 @@ const hadesPoint = new Bullet(
 );
 
 const hadesPoint2 = new Bullet(
-  {ja: 'ハデスポイントII'},
-  'hades-point-2',
+  {ja: 'ハデスポイントII', en: 'Hades Point 2'}, 'hades-point-2',
   BulletType.AETHERIAL,
   [
     new BulletCost(hadesPoint, 1),
@@ -1609,8 +1617,7 @@ const hadesPoint2 = new Bullet(
 );
 
 const hadesPoint3 = new Bullet(
-  {ja: 'ハデスポイントIII'},
-  'hades-point-3',
+  {ja: 'ハデスポイントIII', en: 'Hades Point 3'}, 'hades-point-3',
   BulletType.AETHERIAL,
   [
     new GbfItemCost(aterCentrum, 20),
@@ -1660,7 +1667,13 @@ const rifle: Bullet[] = [
   silverBullet2,
   silverBullet3,
   goldBullet,
-  goldBullet2
+  goldBullet2,
+  paradiseLostExpertModel,
+  chaosLegionExpertModel,
+  anagenesisExpertModel,
+  genesisNovaExpertModel,
+  rationaleExitiumExpertModel,
+  antiVasileiaExpertModel
 ];
 
 const cartridge: Bullet[] = [

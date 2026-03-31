@@ -59,31 +59,47 @@ const saveButtonStyle: React.CSSProperties = {
 };
 
 export const CostCalcItemInputPage = withRouter(({history}) => {
-  const {bulletCosts, inventory, bulletInventory, setActionButton, setInventory} = useContext(BulletCalculatorContext);
+  const {
+    bulletCosts,
+    inventory,
+    bulletInventory,
+    locale,
+    setActionButton,
+    setInventory
+  } = useContext(BulletCalculatorContext);
+
   const [inputInventory, setInputInventory] = useState(inventory);
+
+  const t = {
+    save: locale === 'en' ? 'Save' : '保存',
+    inputOwned: locale === 'en' ? 'Enter Owned Amounts' : '所持数入力',
+    quantitySuffix: locale === 'en' ? '' : '個',
+    invalidNumber: locale === 'en'
+      ? 'An invalid non-numeric value was entered.'
+      : '数値ではない無効な値が入力されています。'
+  };
 
   // バレット作成に必要な全コスト。
   // 全ての作成バレットの素材を合計して列挙する。
   // 所持バレット分の素材は除外する。
-  const totalCosts = useMemo(
-    () => {
-      const combinedBulletInventory = combineDuplicatedInventoryBullets(bulletInventory);
-      return totalBulletCosts(bulletCosts, combinedBulletInventory)
-    },
-    [bulletCosts, bulletInventory]
-  );
+  const totalCosts = useMemo(() => {
+    const combinedBulletInventory = combineDuplicatedInventoryBullets(bulletInventory);
+    return totalBulletCosts(bulletCosts, combinedBulletInventory);
+  }, [bulletCosts, bulletInventory]);
 
   // 保存して戻る用のコールバック。
   const saveAndBack = useCallback((event: AnimationPlaybackEvent) => {
     setActionButton(undefined);
     setInventory(inputInventory);
     history.goBack();
-  }, [history, inputInventory]);
+  }, [history, inputInventory, setActionButton, setInventory]);
 
   // 保存ボタン。
   const saveButton = useMemo(() => (
-    <CardButton style={saveButtonStyle} onAnimationFinish={saveAndBack}>保存</CardButton>
-  ),[saveAndBack]);
+    <CardButton style={saveButtonStyle} onAnimationFinish={saveAndBack}>
+      {t.save}
+    </CardButton>
+  ), [saveAndBack, t.save]);
 
   // ページヘッダに保存ボタンを表示する。
   useEffect(() => {
@@ -97,17 +113,18 @@ export const CostCalcItemInputPage = withRouter(({history}) => {
       const newInputInventory = {...inputInventory};
       const inputElem = (event.target as HTMLInputElement);
 
-      if(inputElem.value) {
-        // 数値以外が入力されているかもしれないので、
-        // とりあえずパースしてみてダメだったらログ出しておく。
+      if (inputElem.value) {
         const parsedInputValue = parseInt(inputElem.value);
 
-        if(Number.isNaN(parsedInputValue)) {
-          console.error('数値ではない無効な値が入力されています。');
+        if (Number.isNaN(parsedInputValue)) {
+          console.error(t.invalidNumber);
         } else {
           newInputInventory[cost.item.slug] = parsedInputValue;
           setInputInventory(newInputInventory);
         }
+      } else {
+        delete newInputInventory[cost.item.slug];
+        setInputInventory(newInputInventory);
       }
     };
 
@@ -116,7 +133,7 @@ export const CostCalcItemInputPage = withRouter(({history}) => {
     return (
       <div key={cost.item.slug} style={costListItemStyle}>
         <img src={`img/${cost.item.iconFileName || 'treasure.svg'}`} style={costIconStyle}/>
-        <div style={costNameStyle}>{cost.item.name.ja}</div>
+        <div style={costNameStyle}>{cost.item.getDisplayName(locale)}</div>
         <div>
           <input
             type="number"
@@ -125,8 +142,9 @@ export const CostCalcItemInputPage = withRouter(({history}) => {
             step="1"
             defaultValue={cost.item.slug in inventory ? inventoryQuantity.toString() : ''}
             onInput={updateInputInventory}
-            style={costInputStyle}/>
-          個
+            style={costInputStyle}
+          />
+          {t.quantitySuffix}
         </div>
       </div>
     );
@@ -135,7 +153,7 @@ export const CostCalcItemInputPage = withRouter(({history}) => {
   return (
     <div className="page">
       <Card style={cardStyle}>
-        <h2 style={cardTitleStyle}>所持数入力</h2>
+        <h2 style={cardTitleStyle}>{t.inputOwned}</h2>
         <div style={costListStyle}>
           {requiredItemList}
         </div>

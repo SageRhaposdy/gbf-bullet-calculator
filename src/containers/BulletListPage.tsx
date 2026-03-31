@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { CardIconButton } from '../components/CardIconButton';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { CardButton } from '../components/CardButton';
 import { BulletCost } from '../data/gbf';
+import { BulletCalculatorContext } from '../context/bulletcalc_context';
 
 interface BulletListPageProps extends RouteComponentProps {
   title?: string;
@@ -59,6 +61,10 @@ const addButtonStyle: React.CSSProperties = {
 
 export const BulletListPage = withRouter((props: BulletListPageProps) => {
   const bulletCosts = props.bulletCosts;
+  const { locale } = useContext(BulletCalculatorContext);
+
+  const quantitySuffix = locale === 'en' ? '' : '個';
+  const addBulletText = locale === 'en' ? 'Add Bullet' : 'バレットを追加';
 
   // バレット新規作成ページへの遷移用コールバック。
   const goToNewBulletPage = (event: AnimationPlaybackEvent) => {
@@ -79,8 +85,8 @@ export const BulletListPage = withRouter((props: BulletListPageProps) => {
         style={{...bulletButtonStyle, backgroundColor: cost.item.cssColorString}}
       >
         <img src={`img/${cost.item.iconFileName || 'treasure.svg'}`} style={bulletButtonIconStyle}/>
-        <div style={bulletButtonLabelStyle}>{cost.item.name.ja}</div>
-        <div style={bulletButtonQuantityStyle}>{cost.quantity}個</div>
+        <div style={bulletButtonLabelStyle}>{cost.item.getDisplayName(locale)}</div>
+        <div style={bulletButtonQuantityStyle}>{cost.quantity}{quantitySuffix}</div>
       </CardButton>
     );
   });
@@ -92,7 +98,7 @@ export const BulletListPage = withRouter((props: BulletListPageProps) => {
       {bulletList}
       <CardIconButton
         iconUrl="img/plus-circle.svg"
-        text="バレットを追加"
+        text={addBulletText}
         onAnimationFinish={goToNewBulletPage}
         style={addButtonStyle}
       />

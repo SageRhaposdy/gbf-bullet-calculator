@@ -20,13 +20,12 @@ import { BulletEditPage } from './containers/BulletEditPage';
 import { PreferencesPage } from './containers/PreferencesPage';
 
 export const App = () => {
-  // 各種保存データの読み込み。
   let initialBulletCosts: BulletCost[] = [];
   let initialInventory: {[slug: string]: number} = {};
   let initialBulletInventory: BulletCost[] = [];
   let initialPreferences: {[item: string]: any} = {};
 
-  if(localStorage) {
+  if (localStorage) {
     const savedBulletCosts = localStorage.getItem('GbfBulletCalc/bullets');
     const savedInventory = localStorage.getItem('GbfBulletCalc/inventory');
     const savedBulletInventory = localStorage.getItem('GbfBulletCalc/bulletinventory');
@@ -35,31 +34,34 @@ export const App = () => {
     try {
       const parsedBullets = JSON.parse(savedBulletCosts || '[]');
       initialBulletCosts = jsonToBulletCosts(parsedBullets);
-    } catch(e) {
+    } catch (e) {
       console.error('データが破損しています：バレットデータ');
     }
 
     try {
       initialInventory = JSON.parse(savedInventory || '{}');
-    } catch(e) {
+    } catch (e) {
       console.error('データが破損しています：インベントリデータ');
     }
 
     try {
       const parsedBulletInventory = JSON.parse(savedBulletInventory || '[]');
       initialBulletInventory = jsonToBulletCosts(parsedBulletInventory);
-    } catch(e) {
+    } catch (e) {
       console.error('データが破損しています：バレットインベントリデータ');
     }
 
     try {
       initialPreferences = JSON.parse(savedPreferences || '{}');
-    } catch(e) {
+    } catch (e) {
       console.error('データが破損しています：設定データ');
     }
   }
 
-  // 初期データの準備。
+  if (!initialPreferences.locale) {
+    initialPreferences.locale = 'ja';
+  }
+
   const [bulletCosts, setBulletCosts] = useState<BulletCost[]>(initialBulletCosts);
   const [inventory, setInventory] = useState<{[slug: string]: number}>(initialInventory);
   const [bulletInventory, setBulletInventory] = useState<BulletCost[]>(initialBulletInventory);
@@ -71,20 +73,18 @@ export const App = () => {
 
   const scrollToTop = useCallback(() => {
     const mainElem = mainRef.current;
-    if(mainElem) {
+    if (mainElem) {
       mainElem.scrollTo(0, 0);
     }
   }, [mainRef]);
 
-  // ルーティング用のヒストリ。
   const memoryHistory = useMemo(() => createMemoryHistory(), []);
   
   useEffect(() => {
-    const unlisten = memoryHistory.listen((location) => scrollToTop());
+    const unlisten = memoryHistory.listen(() => scrollToTop());
     return () => unlisten();
-  }, [memoryHistory]);
+  }, [memoryHistory, scrollToTop]);
 
-  // PWA用の処理。
   useEffect(() => {
     const onBeforeInstallPrompt = (event: any) => {
       event.preventDefault();
@@ -93,41 +93,62 @@ export const App = () => {
 
     addEventListener('beforeinstallprompt', onBeforeInstallPrompt);
 
-    if(navigator.serviceWorker) {
+    if (navigator.serviceWorker) {
       navigator.serviceWorker.register('serviceworker.js');
     }
 
     return () => removeEventListener('beforeinstallprompt', onBeforeInstallPrompt);
   }, [setInstallPrompt]);
 
-  // コールバック関数。
   const setNewBulletCosts = useCallback((newBulletCosts) => {
     setBulletCosts(newBulletCosts);
-    if(localStorage) {
+    if (localStorage) {
       localStorage.setItem('GbfBulletCalc/bullets', JSON.stringify(bulletCostsToJson(newBulletCosts)));
     }
   }, [setBulletCosts]);
 
   const setNewInventory = useCallback((newInventory) => {
     setInventory(newInventory);
-    if(localStorage) {
+    if (localStorage) {
       localStorage.setItem('GbfBulletCalc/inventory', JSON.stringify(newInventory));
     }
   }, [setInventory]);
 
   const setNewBulletInventory = useCallback((newBulletInventory) => {
     setBulletInventory(newBulletInventory);
-    if(localStorage) {
+    if (localStorage) {
       localStorage.setItem('GbfBulletCalc/bulletinventory', JSON.stringify(bulletCostsToJson(newBulletInventory)));
     }
   }, [setBulletInventory]);
 
   const setNewPreferences = useCallback((newPreferences) => {
-    setPreferences(newPreferences);
-    if(localStorage) {
-      localStorage.setItem('GbfBulletCalc/preferences', JSON.stringify(newPreferences));
+    const normalizedPreferences = {
+      ...newPreferences,
+      locale: newPreferences.locale || 'ja'
+    };
+
+    setPreferences(normalizedPreferences);
+    if (localStorage) {
+      localStorage.setItem('GbfBulletCalc/preferences', JSON.stringify(normalizedPreferences));
     }
   }, [setPreferences]);
+
+  const setLocale = useCallback((locale: string) => {
+    setNewPreferences({
+      ...preferences,
+      locale
+    });
+  }, [preferences, setNewPreferences]);
+
+  const locale = preferences.locale || 'ja';
+
+  const t = {
+    bulletListTitle: locale === 'en' ? 'Bullets to Craft' : '作成するバレット',
+    bulletInventoryTitle: locale === 'en' ? 'Material Bullets' : '素材用バレット',
+    bulletInventoryDescription: locale === 'en'
+      ? 'Crafted bullets used as materials'
+      : '素材として使用する作成済バレット'
+  };
 
   return (
     <>
@@ -138,16 +159,18 @@ export const App = () => {
           bulletInventory,
           actionButton,
           systemPreferences: preferences,
+          locale,
           installPrompt,
           setBulletCosts: setNewBulletCosts,
           setInventory: setNewInventory,
           setBulletInventory: setNewBulletInventory,
           setActionButton,
           setSystemPreferences: setNewPreferences,
+          setLocale,
           setInstallPrompt
         }
       }>
-        <Router history={memoryHistory} >
+        <Router history={memoryHistory}>
           <Route render={({location}) => {
             const isInputMode = location.pathname.startsWith('/calc/input');
 
@@ -163,7 +186,7 @@ export const App = () => {
                           path="/bulletlist"
                           render={() =>
                             <BulletListPage
-                              title="作成するバレット"
+                              title={t.bulletListTitle}
                               basepath="/bulletlist"
                               bulletCosts={bulletCosts}
                             />
@@ -177,7 +200,7 @@ export const App = () => {
                         <Route
                           exact
                           path="/bulletlist/edit/:bulletid"
-                          render={(props)=>
+                          render={(props) =>
                             <BulletEditPage
                               bulletCosts={bulletCosts}
                               onSave={setNewBulletCosts}
@@ -208,11 +231,12 @@ export const App = () => {
                           path="/bulletinventory"
                           render={() =>
                             <BulletListPage
-                              title="素材用バレット"
-                              description="素材として使用する作成済バレット"
+                              title={t.bulletInventoryTitle}
+                              description={t.bulletInventoryDescription}
                               basepath="/bulletinventory"
                               bulletCosts={bulletInventory}
-                            />}
+                            />
+                          }
                         />
                         <Route
                           exact
@@ -222,7 +246,7 @@ export const App = () => {
                         <Route
                           exact
                           path="/bulletinventory/edit/:bulletid"
-                          render={(props)=>
+                          render={(props) =>
                             <BulletEditPage
                               bulletCosts={bulletInventory}
                               onSave={setNewBulletInventory}
@@ -239,7 +263,7 @@ export const App = () => {
                           exact
                           path="/bulletinventory/newbullet/:bullettype/:bulletslug"
                           render={(props) =>
-                              <NewBulletAddPage
+                            <NewBulletAddPage
                               basepath="/bulletinventory"
                               bulletCosts={bulletInventory}
                               onSave={setNewBulletInventory}

@@ -2,10 +2,11 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Card } from '../components/Card';
 import { CardButton } from '../components/CardButton';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { slugToBullet } from '../data/gbf_item_data';
 import { Counter } from '../components/Counter';
 import { BulletCost } from '../data/gbf';
+import { BulletCalculatorContext } from '../context/bulletcalc_context';
 
 interface NewBulletAddPageProps extends RouteComponentProps<{bulletslug: string}> {
   basepath: string;
@@ -66,9 +67,13 @@ const costQuantityStyle: React.CSSProperties = {
 
 export const NewBulletAddPage = (props: NewBulletAddPageProps) => {
   const [count, setCount] = useState(1);
+  const { locale } = useContext(BulletCalculatorContext);
 
   const bullet = slugToBullet[props.match.params.bulletslug];
-  const coloredCardStyle = useMemo(() => ({...cardStyle, backgroundColor: bullet.cssColorString}), []);
+  const coloredCardStyle = useMemo(() => ({...cardStyle, backgroundColor: bullet.cssColorString}), [bullet.cssColorString]);
+
+  const quantitySuffix = locale === 'en' ? '' : '個';
+  const addText = locale === 'en' ? 'Add' : '追加';
 
   // カウンターのカウント変更時のコールバック。
   const onCountChange = useCallback((newCount: number) => {
@@ -81,15 +86,15 @@ export const NewBulletAddPage = (props: NewBulletAddPageProps) => {
       props.onSave([...props.bulletCosts, new BulletCost(bullet, count)]);
     }
     props.history.replace(props.basepath);
-  }, [props.bulletCosts, props.onSave, count]);
+  }, [props.bulletCosts, props.onSave, count, bullet, props.history, props.basepath]);
 
   // 作成に必要なアイテムリスト。
   const requiredItemList = bullet.requiredCosts.map((cost) => {
     return (
       <div key={cost.item.slug} style={costListItemStyle}>
         <img src={`img/${cost.item.iconFileName || 'treasure.svg'}`} style={costIconStyle}/>
-        <div style={costNameStyle}>{cost.item.name.ja}</div>
-        <div style={costQuantityStyle}>{cost.quantity * count}個</div>
+        <div style={costNameStyle}>{cost.item.getDisplayName(locale)}</div>
+        <div style={costQuantityStyle}>{cost.quantity * count}{quantitySuffix}</div>
       </div>
     );
   });
@@ -99,11 +104,11 @@ export const NewBulletAddPage = (props: NewBulletAddPageProps) => {
       <Card style={coloredCardStyle}>
         <div style={bulletFigureStyle}>
           <img src={`img/${bullet.iconFileName || 'treasure.svg'}`}/>
-          <div>{bullet.name.ja}</div>
+          <div>{bullet.getDisplayName(locale)}</div>
         </div>
-        <Counter initialValue={count} min={0} max={999} unit="個" onCountChange={onCountChange}/>
+        <Counter initialValue={count} min={0} max={999} unit={quantitySuffix} onCountChange={onCountChange}/>
         <CardButton onAnimationFinish={addBulletAndBack} style={addBulletButtonStyle}>
-          追加
+          {addText}
         </CardButton>
         <div style={costListStyle}>
           {requiredItemList}

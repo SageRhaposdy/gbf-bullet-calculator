@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { useCallback, useContext } from 'react';
 import { CardIconButton } from '../components/CardIconButton';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { RouteComponentProps } from 'react-router';
 import { bullet } from '../data/gbf_item_data';
-import { useCallback } from 'react';
+import { BulletCalculatorContext } from '../context/bulletcalc_context';
 
 interface NewBulletPagePros extends RouteComponentProps<{bullettype: string}>{
   basepath: string;
@@ -24,29 +25,25 @@ const iconButtonStyle: React.CSSProperties = {
 
 export const NewBulletPage = (props: NewBulletPagePros) => {
   const bulletType = props.match.params.bullettype;
+  const { locale } = useContext(BulletCalculatorContext);
 
-  //
-  // 各ページへ遷移する用のコールバック関数。
-  // もう少し綺麗な方法ないかな……。
-  //
   const goToParabellum = useCallback((event: AnimationPlaybackEvent) => {
     props.history.push(`${props.basepath}/newbullet/parabellum`, {backable: true});
-  }, [props.history]);
+  }, [props.history, props.basepath]);
 
   const goToRifle = useCallback((event: AnimationPlaybackEvent) => {
     props.history.push(`${props.basepath}/newbullet/rifle`, {backable: true});
-  }, [props.history]);
+  }, [props.history, props.basepath]);
 
   const goToCartridge = useCallback((event: AnimationPlaybackEvent) => {
     props.history.push(`${props.basepath}/newbullet/cartridge`, {backable: true});
-  }, [props.history]);
+  }, [props.history, props.basepath]);
 
   const goToAetherial = useCallback((event: AnimationPlaybackEvent) => {
     props.history.push(`${props.basepath}/newbullet/aetherial`, {backable: true});
-  }, [props.history]);
+  }, [props.history, props.basepath]);
 
-  // 選択したバレットタイプに応じたバレット一覧。
-  if(bulletType) {
+  if (bulletType) {
     const bulletList = bullet[bulletType] || [];
     const bulletButtons = bulletList.map((bullet) => {
       const goToNewBullet = (event: AnimationPlaybackEvent) => {
@@ -57,7 +54,7 @@ export const NewBulletPage = (props: NewBulletPagePros) => {
         <CardIconButton
           key={bullet.slug}
           iconUrl={`img/${bullet.iconFileName || 'treasure.svg'}`}
-          text={bullet.name.ja}
+          text={bullet.getDisplayName(locale)}
           onAnimationFinish={goToNewBullet}
           style={{...iconButtonStyle, backgroundColor: bullet.cssColorString}}
         />
@@ -75,28 +72,28 @@ export const NewBulletPage = (props: NewBulletPagePros) => {
     <div className="page" style={buttonContainerStyle}>
       <CardIconButton
         iconUrl="img/parabellum-bullet.svg"
-        text="パラベラム弾"
+        text={locale === 'en' ? 'Parabellum' : 'パラベラム弾'}
         onAnimationFinish={goToParabellum}
         style={iconButtonStyle}
       />
 
       <CardIconButton
         iconUrl="img/rifle-bullet.svg"
-        text="ライフル弾"
+        text={locale === 'en' ? 'Rifle' : 'ライフル弾'}
         onAnimationFinish={goToRifle}
         style={iconButtonStyle}
       />
 
       <CardIconButton
         iconUrl="img/cartridge-bullet.svg"
-        text="カートリッジ"
+        text={locale === 'en' ? 'Cartridge' : 'カートリッジ'}
         onAnimationFinish={goToCartridge}
         style={iconButtonStyle}
       />
 
       <CardIconButton
         iconUrl="img/aetherial-bullet.svg"
-        text="エーテリアル弾"
+        text={locale === 'en' ? 'Aetherial' : 'エーテリアル弾'}
         onAnimationFinish={goToAetherial}
         style={iconButtonStyle}
       />

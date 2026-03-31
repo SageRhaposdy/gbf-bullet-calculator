@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { MobileNavButton } from './MobileNavButton';
+import { BulletCalculatorContext } from '../../context/bulletcalc_context';
 
 const mobileNavBarStyle: React.CSSProperties = {
   display: 'flex',
@@ -27,6 +29,8 @@ const activeLinkStyle: React.CSSProperties = {
 };
 
 export const MobileNavBar = () => {
+  const { locale } = useContext(BulletCalculatorContext);
+
   return (
     <div style={mobileNavBarStyle}>
       <NavLink
@@ -34,7 +38,10 @@ export const MobileNavBar = () => {
         activeStyle={activeLinkStyle}
         style={linkStyle}
       >
-        <MobileNavButton iconUrl="img/bullet.svg" label="作成"/>
+        <MobileNavButton
+          iconUrl="img/bullet.svg"
+          label={locale === 'en' ? 'Craft' : '作成'}
+        />
       </NavLink>
 
       <NavLink
@@ -42,7 +49,10 @@ export const MobileNavBar = () => {
         activeStyle={activeLinkStyle}
         style={linkStyle}
       >
-        <MobileNavButton iconUrl="img/treasure.svg" label="素材用"/>
+        <MobileNavButton
+          iconUrl="img/treasure.svg"
+          label={locale === 'en' ? 'Materials' : '素材用'}
+        />
       </NavLink>
 
       <NavLink
@@ -50,7 +60,10 @@ export const MobileNavBar = () => {
         activeStyle={activeLinkStyle}
         style={linkStyle}
       >
-        <MobileNavButton iconUrl="img/calc.svg" label="素材計算"/>
+        <MobileNavButton
+          iconUrl="img/calc.svg"
+          label={locale === 'en' ? 'Calc' : '素材計算'}
+        />
       </NavLink>
 
       <NavLink
@@ -58,7 +71,10 @@ export const MobileNavBar = () => {
         activeStyle={activeLinkStyle}
         style={linkStyle}
       >
-        <MobileNavButton iconUrl="img/preferences.svg" label="設定"/>
+        <MobileNavButton
+          iconUrl="img/preferences.svg"
+          label={locale === 'en' ? 'Settings' : '設定'}
+        />
       </NavLink>
     </div>
   )

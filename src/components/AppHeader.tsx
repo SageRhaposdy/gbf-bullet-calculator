@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { CardButton } from './CardButton';
-import { useCallback} from 'react';
+import { useCallback, useContext } from 'react';
+import { BulletCalculatorContext } from '../context/bulletcalc_context';
 
 export interface AppHeaderProps extends RouteComponentProps {
   actionButton?: React.ReactNode;
@@ -41,6 +42,8 @@ const actionButtonContainerStyle: React.CSSProperties = {
 };
 
 export const AppHeader = withRouter((props: AppHeaderProps) => {
+  const { locale } = useContext(BulletCalculatorContext);
+
   // 戻るボタンを押した時のコールバック関数。
   const onAnimationFinish = useCallback(() => {
     props.history.goBack();
@@ -60,7 +63,9 @@ export const AppHeader = withRouter((props: AppHeaderProps) => {
           ←
         </CardButton>
       </div>
-      <h1 style={appTitleStyle}>バレット計算機</h1>
+      <h1 style={appTitleStyle}>
+        {locale === 'en' ? 'Bullet Calculator' : 'バレット計算機'}
+      </h1>
       <div style={actionButtonContainerStyle}>
         {props.actionButton}
       </div>

@@ -2,9 +2,10 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Card } from '../components/Card';
 import { CardButton } from '../components/CardButton';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { Counter } from '../components/Counter';
 import { BulletCost } from '../data/gbf';
+import { BulletCalculatorContext } from '../context/bulletcalc_context';
 
 interface BulletEditPageProps extends RouteComponentProps<{bulletid: string}> {
   bulletCosts: BulletCost[];
@@ -74,13 +75,24 @@ const costQuantityStyle: React.CSSProperties = {
 };
 
 export const BulletEditPage = (props: BulletEditPageProps) => {
+  const { locale } = useContext(BulletCalculatorContext);
+
+  const t = {
+    save: locale === 'en' ? 'Save' : '保存',
+    delete: locale === 'en' ? 'Delete' : '削除',
+    deleteConfirm: locale === 'en'
+      ? 'Delete this bullet?'
+      : 'このバレットを削除しますか？',
+    quantitySuffix: locale === 'en' ? '' : '個'
+  };
+
   // URLパラメータからバレットIDを取得する。
   // バレットIDは作成バレットリストの中のインデックス値。
   const bulletId = parseInt(props.match.params.bulletid);
 
   // バレットIDを用いて作成バレットリストからバレットを取得。
   // 削除した時に再レンダリングが走るとIDがずれてバグるのでuseMemoして固定しておく。
-  const targetBulletCost = useMemo(() => props.bulletCosts[bulletId], [bulletId]);
+  const targetBulletCost = useMemo(() => props.bulletCosts[bulletId], [props.bulletCosts, bulletId]);
   const bullet = targetBulletCost.bullet;
 
   // バレットの個数。
@@ -90,7 +102,7 @@ export const BulletEditPage = (props: BulletEditPageProps) => {
   const coloredCardStyle = useMemo(() => ({
     ...cardStyle,
     backgroundColor: targetBulletCost.item.cssColorString
-  }), []);
+  }), [targetBulletCost.item.cssColorString]);
 
   // カウンターの値変更時にステートの値も変化させるコールバック。
   const onCountChange = useCallback((newCount: number) => {
@@ -101,7 +113,7 @@ export const BulletEditPage = (props: BulletEditPageProps) => {
   const editBulletAndBack = useCallback((event: AnimationPlaybackEvent) => {
     const newBulletCosts = [...props.bulletCosts];
 
-    if(count > 0) {
+    if (count > 0) {
       newBulletCosts[bulletId] = new BulletCost(bullet, count);
     } else {
       newBulletCosts.splice(bulletId, 1);
@@ -109,11 +121,11 @@ export const BulletEditPage = (props: BulletEditPageProps) => {
 
     props.onSave(newBulletCosts);
     props.history.goBack();
-  }, [props.bulletCosts, props.onSave, count]);
+  }, [props.bulletCosts, props.onSave, props.history, count, bullet, bulletId]);
 
   // バレット削除時のコールバック。
   const deleteBulletAndBack = useCallback((event: AnimationPlaybackEvent) => {
-    if(!confirm('このバレットを削除しますか？')) {
+    if (!confirm(t.deleteConfirm)) {
       return;
     }
 
@@ -121,15 +133,15 @@ export const BulletEditPage = (props: BulletEditPageProps) => {
     newBulletCosts.splice(bulletId, 1);
     props.onSave(newBulletCosts);
     props.history.goBack();
-  }, [props.bulletCosts, props.onSave]);
+  }, [props.bulletCosts, props.onSave, props.history, bulletId, t.deleteConfirm]);
 
   // バレット作成への必要アイテムリスト。
   const requiredItemList = bullet.requiredCosts.map((cost) => {
     return (
       <div key={cost.item.slug} style={costListItemStyle}>
         <img src={`img/${cost.item.iconFileName || 'treasure.svg'}`} style={costIconStyle}/>
-        <div style={costNameStyle}>{cost.item.name.ja}</div>
-        <div style={costQuantityStyle}>{cost.quantity * count}個</div>
+        <div style={costNameStyle}>{cost.item.getDisplayName(locale)}</div>
+        <div style={costQuantityStyle}>{cost.quantity * count}{t.quantitySuffix}</div>
       </div>
     );
   });
@@ -139,13 +151,13 @@ export const BulletEditPage = (props: BulletEditPageProps) => {
       <Card style={coloredCardStyle}>
         <div style={bulletFigureStyle}>
           <img src={`img/${bullet.iconFileName || 'treasure.svg'}`}/>
-          <div>{bullet.name.ja}</div>
+          <div>{bullet.getDisplayName(locale)}</div>
         </div>
 
-        <Counter initialValue={count} min={0} max={999} unit="個" onCountChange={onCountChange}/>
+        <Counter initialValue={count} min={0} max={999} unit={t.quantitySuffix} onCountChange={onCountChange}/>
 
         <CardButton onAnimationFinish={editBulletAndBack} style={addBulletButtonStyle}>
-          保存
+          {t.save}
         </CardButton>
 
         <div style={costListStyle}>
@@ -153,7 +165,7 @@ export const BulletEditPage = (props: BulletEditPageProps) => {
         </div>
 
         <CardButton onAnimationFinish={deleteBulletAndBack} style={deleteBulletButtonStyle}>
-          削除
+          {t.delete}
         </CardButton>
       </Card>
     </div>

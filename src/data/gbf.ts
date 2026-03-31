@@ -33,6 +33,10 @@ export class GbfItem {
   get iconFileName(): string | undefined {
     return this._iconFileName;
   }
+
+  getDisplayName(locale: string = 'ja'): string {
+    return this._name[locale] || this._name.ja || '';
+  }
 }
 
 export interface RequiredCostResult {
@@ -134,40 +138,28 @@ export class BulletCost extends GbfItemCost {
   calcRequiredCosts(option: {exclusionCosts?: GbfItemCost[]} = {}): RequiredCostResult {
     const exclusions = [...(option.exclusionCosts || [])];
 
-    // キャッシュがあってバレット除外設定がキャッシュと同じであればそのまま返す。
-    if(this._requiredCostsCache && this._exclusionCache) {
+    if (this._requiredCostsCache && this._exclusionCache) {
       const isSameLength = this._exclusionCache.length === exclusions.length;
       const isSameList = isSameLength && this._exclusionCache.every((ex, index) => ex === exclusions[index]);
 
-      if(isSameList) {
+      if (isSameList) {
         return this._requiredCostsCache;
       }
     }
 
-    // 必要素材を計算する。
-    // このときアイテムの順序をできる限り入れ替わらないようにしている。
-
-    // 所持バレットのコスト除外処理用。
-    // ここから所持バレットを消費（引き算、削除）していく。
     const remainingExclusions = [...exclusions];
 
-    // コスト計算
-    type costObj = {item: GbfItem, quantity: number};
+    type costObj = { item: GbfItem; quantity: number };
     const costMap: Map<string, costObj> = new Map<string, costObj>();
-    const costList = [];
+    const costList: costObj[] = [];
 
-    // 各アイテムを必要アイテムに分解する。
-    // このときバレットはアイテムに分解されるが、アイテムはそのままになる。
     const itemCostList = this._bullet.requiredCosts.map((c) => {
-      // 除外対象か確認
       const exclusionIndex = remainingExclusions.findIndex((ex) => ex.item.slug === c.item.slug);
 
       let exclusionNum = 0;
       const isExcluded = exclusionIndex >= 0;
 
-      // 除外対象なら引き算して再計算。
-      // 除外リストから使用個数も引いておく。
-      if(isExcluded) {
+      if (isExcluded) {
         const exclusionCost = remainingExclusions[exclusionIndex];
         const exclusionRemains = exclusionCost.sub(c.quantity);
 
@@ -180,33 +172,27 @@ export class BulletCost extends GbfItemCost {
         exclusionNum = exclusionCost.quantity;
       }
 
-      // コストにこのオブジェクトの個数を掛け算し、
-      // 除外分のバレットを引き算する。
       return c.multiply(this.quantity)
         .sub(exclusionNum)
-        .calcRequiredCosts({exclusionCosts: remainingExclusions})
+        .calcRequiredCosts({ exclusionCosts: remainingExclusions })
         .result;
     }).flat();
 
-    // 分解したアイテムごとに個数をカウントする。
-    // すでに存在する場合はそこに加算し、存在しない場合は新たに加える。
-    for(const icost of itemCostList) {
+    for (const icost of itemCostList) {
       const cost = costMap.get(icost.item.slug);
-      if(cost) {
+      if (cost) {
         cost.quantity += icost.quantity;
       } else {
-        const newCost = {item: icost.item, quantity: icost.quantity};
+        const newCost = { item: icost.item, quantity: icost.quantity };
         costMap.set(icost.item.slug, newCost);
         costList.push(newCost);
       }
     }
 
-    // 計算結果をGbfItemCostオブジェクトに戻す。
     const costResult = costList
       .filter((c) => c.quantity > 0)
       .map((c) => new GbfItemCost(c.item, c.quantity));
 
-    // キャッシュする。
     const result = {
       result: costResult,
       remainingExclusions
